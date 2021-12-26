@@ -1,0 +1,13 @@
+add_library(window src/glfw_window.cpp)
+add_library(deep::window ALIAS window)
+
+target_include_directories(window
+        PUBLIC include/
+        PRIVATE ${CMAKE_SOURCE_DIR}/resources)
+
+target_link_libraries(window
+        PRIVATE
+        glfw
+        glad::glad
+        deep::math
+        deep::shader)

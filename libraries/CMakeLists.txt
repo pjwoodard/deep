@@ -1,0 +1,12 @@
+find_package(fmt)
+find_package(spdlog)
+find_package(docopt)
+find_package(glfw3 REQUIRED)
+find_package(glad REQUIRED)
+find_package(namedtype REQUIRED)
+
+add_subdirectory(shader)
+add_subdirectory(types)
+add_subdirectory(math)
+add_subdirectory(context)
+add_subdirectory(window)
