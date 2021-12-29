@@ -9,14 +9,16 @@ endif()
 find_package(fmt)
 find_package(spdlog)
 find_package(docopt)
+find_package(stb)
 
 # Generic test that uses conan libs
-add_executable(deep main.cpp)
+add_executable(deep deep.cpp)
 target_link_libraries(
   deep
   PRIVATE docopt::docopt
           fmt::fmt
           spdlog::spdlog
+          stb::stb
           deep::math
           deep::shader
           deep::window

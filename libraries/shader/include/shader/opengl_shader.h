@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <GLFW/glfw3.h>
 
-#include "types/deep_types.h"
+#include "types/deep_concepts.h"
 
 enum class GLShaderStatus : GLenum
 {

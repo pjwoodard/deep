@@ -18,7 +18,7 @@ class OpenGLProgram
 
     [[nodiscard]] constexpr auto id() const noexcept { return gl_program_id_; };
 
-    void setUniform(const std::string_view name, const deep::types::OpenGLUniform auto uniform)
+    void setUniform(const std::string_view name, const deep::concepts::OpenGLUniform auto uniform)
     {
         if constexpr (std::is_floating_point_v<decltype(uniform)>) {
             glUniform1f(glGetUniformLocation(gl_program_id_, name.data()), uniform);

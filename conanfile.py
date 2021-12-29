@@ -1,5 +1,6 @@
 from conans import ConanFile
 
+
 class DeepProject(ConanFile):
     name = "deep"
     version = "0.1.0"
@@ -10,7 +11,8 @@ class DeepProject(ConanFile):
         "spdlog/1.9.2",
         "glfw/3.3.5",
         "glad/0.1.34",
-        "namedtype/20190324"
+        "namedtype/20190324",
+        "stb/cci.20210713"
     )
     generators = "cmake", "gcc", "txt", "cmake_find_package"
 

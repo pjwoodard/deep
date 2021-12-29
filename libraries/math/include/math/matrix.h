@@ -1,9 +1,9 @@
 #include <concepts>
 #include <array>
 
-#include "types/deep_types.h"
+#include "types/deep_concepts.h"
 
-template<deep::types::Numeric Data, const std::size_t Rows, const std::size_t Columns>
+template<deep::concepts::Numeric Data, const std::size_t Rows, const std::size_t Columns>
 class Matrix
 {
   public:
@@ -23,8 +23,8 @@ class Matrix
     std::array<Data, Rows * Columns> data_;
 };
 
-template<deep::types::Numeric Data>
+template<deep::concepts::Numeric Data>
 using Vector2D = Matrix<Data, 1, 2>;
 
-template<deep::types::Numeric Data>
+template<deep::concepts::Numeric Data>
 using Vector3D = Matrix<Data, 1, 3>;

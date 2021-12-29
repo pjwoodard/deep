@@ -76,7 +76,7 @@ void GlfwWindow::display() const
 
     glVertexAttribPointer(position_attribute,
                           vec3_size,
-                          types::to_integral(types::OpenGLDataType::FLOAT),
+                          concepts::to_integral(types::OpenGLDataType::FLOAT),
                           GL_FALSE,
                           data_stride,
                           nullptr);
@@ -86,7 +86,7 @@ void GlfwWindow::display() const
     glVertexAttribPointer(
       color_attribute,
       vec3_size,
-      types::to_integral(types::OpenGLDataType::FLOAT),
+      concepts::to_integral(types::OpenGLDataType::FLOAT),
       GL_FALSE,
       data_stride,
       reinterpret_cast<const void*>(color_offset)); // NOLINT
