@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string_view>
 #include <cstdint>
 #include <GLFW/glfw3.h>
 
@@ -13,13 +14,14 @@ enum class GLShaderStatus : GLenum
 enum class GLShaderType : GLenum
 {
     VertexShader = GL_VERTEX_SHADER,
-    FragmentShader = GL_FRAGMENT_SHADER
+    FragmentShader = GL_FRAGMENT_SHADER,
+//    GeometryShader = GL_GEOMETRY_SHADER
 };
 
 class OpenGLShader
 {
 public:
-    OpenGLShader (const GLShaderType &type, std::string_view data);
+    OpenGLShader(const GLShaderType &type, std::string_view data);
 
     OpenGLShader(OpenGLShader &&shader) noexcept = default;
     OpenGLShader& operator=(OpenGLShader &&shader) noexcept = default;
@@ -36,6 +38,6 @@ private:
     uint32_t id_;
 
     void compile(std::string_view shader_program_str) const;
-    [[nodiscard]] int32_t get_shader_status(const GLShaderStatus& shader_status) const;
+    [[nodiscard]] int32_t get_shader_status(const GLShaderStatus& shader_status_to_query) const;
     [[nodiscard]] bool shader_compilation_successful() const;
 };

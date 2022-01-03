@@ -10,4 +10,5 @@ target_link_libraries(window
         glfw
         glad::glad
         deep::math
-        deep::shader)
+        deep::shader
+        deep::texture)

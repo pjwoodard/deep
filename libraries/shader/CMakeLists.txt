@@ -4,7 +4,11 @@ add_library(shader
 
 add_library(deep::shader ALIAS shader)
 
-target_include_directories(shader PUBLIC include/)
+target_include_directories(shader
+        PUBLIC
+            include/
+        PRIVATE
+            private/)
 
 target_link_libraries(shader
         PRIVATE

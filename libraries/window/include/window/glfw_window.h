@@ -22,6 +22,10 @@ class GlfwWindow
     void set_as_current_context() const;
 
   private:
+    enum class OpenGLDataType : GLenum {
+        FLOAT = GL_FLOAT
+    };
+
     static void framebuffer_size_callback(GLFWwindow * /*window*/, int32_t width, int32_t height)
     {
         glViewport(0, 0, width, height);
@@ -37,7 +41,7 @@ class GlfwWindow
 
     struct GlfwWindowDeleter
     {
-        void operator()(GLFWwindow *raw_window)
+        void operator()(GLFWwindow *raw_window) const
         {
             glfwDestroyWindow(raw_window);
         }

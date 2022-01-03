@@ -13,8 +13,11 @@ enum class DeepState
 class Deep
 {
     // Our constructor accepts anything that satisfies the window concept
-    Deep(const auto Window &window);
+    explicit Deep(const deep::concepts::Window auto &window);
+
   private:
-    DeepState state_;
+    [[maybe_unused]] int width_;
+    [[maybe_unused]] int height_;
+    [[maybe_unused]] DeepState state_;
 };
 

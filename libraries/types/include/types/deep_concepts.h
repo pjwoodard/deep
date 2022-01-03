@@ -1,6 +1,7 @@
 #pragma once
 
-#include "deep_types.h"
+#include <type_traits>
+#include <concepts>
 
 namespace deep::concepts {
 template<class T>
@@ -16,6 +17,8 @@ template<typename T>
 concept Window = requires(T a)
 {
     a.display();
+    a.width();
+    a.height();
 };
 
 constexpr auto to_integral(const scoped_enum_type auto e) -> std::underlying_type_t<decltype(e)>

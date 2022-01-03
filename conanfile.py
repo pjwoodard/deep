@@ -9,7 +9,7 @@ class DeepProject(ConanFile):
         "docopt.cpp/0.6.2",
         "fmt/8.0.1",
         "spdlog/1.9.2",
-        "glfw/3.3.5",
+        "glfw/3.3.6",
         "glad/0.1.34",
         "namedtype/20190324",
         "stb/cci.20210713"

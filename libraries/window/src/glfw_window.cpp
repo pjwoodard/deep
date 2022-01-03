@@ -1,13 +1,12 @@
-#include <array>
 #include <string_view>
 
 #include <glad/glad.h>
 
 #include "math/matrix.h"
-#include "window/glfw_window.h"
-#include "shader/opengl_program.h"
-#include "shader/opengl_shader.h"
+#include "program/opengl_program.h"
 #include "shaders/hello_triangle.h"
+#include "window/glfw_window.h"
+#include "texture/opengl_texture.h"
 
 using namespace std::literals;
 using namespace deep;
@@ -27,41 +26,24 @@ GlfwWindow::GlfwWindow(std::string_view title,
 }
 void GlfwWindow::display() const
 {
-    std::vector<OpenGLShader> shaders;
-    shaders.reserve(2);
-    shaders.emplace_back(GLShaderType::VertexShader,
-                         vertex_shaders::hello_triangle);
-    shaders.emplace_back(GLShaderType::FragmentShader,
-                         fragment_shaders::hello_triangle);
-
-    OpenGLProgram opengl_program{ shaders };
+    OpenGLProgram opengl_program{ vertex_shaders::hello_triangle, fragment_shaders::hello_triangle };
 
     constexpr auto vec3_size{ 3 };
-    constexpr auto data_stride{ 6 * sizeof(float) };
+    constexpr auto data_stride{ 8 * sizeof(float) };
     constexpr auto color_offset{ 3 * sizeof(float) };
+    constexpr auto texture_offset{ 6 * sizeof(float) };
     constexpr auto position_attribute{ 0 };
     constexpr auto color_attribute{ 1 };
+    constexpr auto texture_attribute { 2 };
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    constexpr Matrix<float, 6, 3> vertices{
-        {
-          0.5F, 0.5F, 0.0F, 1.0F, 0.0F, 0.0F, // bottom right
-          -0.5F, 0.5F, 0.0F, 0.0F, 1.0F, 0.0F, // bottom left
-          0.0F, -0.5F, 0.0F, 0.0F, 0.0F, 1.0F
-        }
+    constexpr Matrix<float, 4, 8> vertices {
+      {0.5F,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // NOLINT
+      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // NOLINT
+      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // NOLINT
+      -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f}    // NOLINT
     };
 
-//    constexpr Matrix<float, 3, 2> texture_coordinates {
-//        {
-//          0.0F, 0.0F,
-//          1.0F, 0.0F,
-//          0.5F, 1.0F
-//        }
-//    };
+    OpenGLTexture texture{};
 
     uint32_t vertex_buffer_id = 0;
     uint32_t vertex_array_id = 0;
@@ -76,7 +58,7 @@ void GlfwWindow::display() const
 
     glVertexAttribPointer(position_attribute,
                           vec3_size,
-                          concepts::to_integral(types::OpenGLDataType::FLOAT),
+                          deep::concepts::to_integral(OpenGLDataType::FLOAT),
                           GL_FALSE,
                           data_stride,
                           nullptr);
@@ -86,18 +68,26 @@ void GlfwWindow::display() const
     glVertexAttribPointer(
       color_attribute,
       vec3_size,
-      concepts::to_integral(types::OpenGLDataType::FLOAT),
+      concepts::to_integral(OpenGLDataType::FLOAT),
       GL_FALSE,
       data_stride,
       reinterpret_cast<const void*>(color_offset)); // NOLINT
 
     glEnableVertexAttribArray(color_attribute);
 
+    glVertexAttribPointer(
+      texture_attribute,
+      2,
+      concepts::to_integral(OpenGLDataType::FLOAT),
+      GL_FALSE,
+      data_stride,
+      reinterpret_cast<const void*>(texture_offset)); //NOLINT
+
+    glEnableVertexAttribArray(texture_attribute);
+
     //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    glUseProgram(opengl_program.id());
-
-    float current_offset{-0.5F}; //NOLINT
+    opengl_program.set_as_current_program();
 
     while (glfwWindowShouldClose(self_raw_.get()) == 0) {
         processInput(self_raw_.get());
@@ -105,17 +95,9 @@ void GlfwWindow::display() const
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f ); //NOLINT
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //NOLINT
 
-        opengl_program.setUniform("horizontalOffset"sv, current_offset);
-
-        if (current_offset >= 0.5F) //NOLINT
-        {
-            current_offset = -0.5F; //NOLINT
-        }
-
-        current_offset += 0.001F; //NOLINT
-
+        glBindTexture(GL_TEXTURE_2D, texture.id());
         glBindVertexArray(vertex_array_id);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(self_raw_.get());
         glfwPollEvents();

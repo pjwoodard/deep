@@ -1,7 +1,8 @@
-add_library(math INTERFACE)
-add_library(deep::math ALIAS math)
+add_library(deep src/deep.cpp)
+add_library(deep::deep ALIAS deep)
 
-target_include_directories(math INTERFACE include/)
-target_sources(math INTERFACE include/math/matrix.h)
+target_include_directories(deep
+        PUBLIC
+            include/)
 
-target_link_libraries(math INTERFACE deep::types)
+target_link_libraries(deep PRIVATE deep::types)

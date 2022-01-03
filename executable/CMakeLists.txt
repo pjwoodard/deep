@@ -12,9 +12,12 @@ find_package(docopt)
 find_package(stb)
 
 # Generic test that uses conan libs
-add_executable(deep deep.cpp)
+add_executable(deep_exe deep_exe.cpp)
+
+set_target_properties(deep_exe PROPERTIES OUTPUT_NAME "deep")
+
 target_link_libraries(
-  deep
+  deep_exe
   PRIVATE docopt::docopt
           fmt::fmt
           spdlog::spdlog
@@ -22,4 +25,5 @@ target_link_libraries(
           deep::math
           deep::shader
           deep::window
-          deep::context)
+          deep::context
+          deep::deep)
