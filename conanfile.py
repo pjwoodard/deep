@@ -18,7 +18,7 @@ class DeepProject(ConanFile):
 
     def configure(self):
         self.options['glad'].shared = False
-        self.options['glad'].fPIC = True
+        # self.options['glad'].fPIC = True
         self.options['glad'].no_loader = False
         self.options['glad'].spec = 'gl'
         self.options['glad'].gl_profile = 'core'
