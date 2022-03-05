@@ -2,6 +2,7 @@
 build/
 out/
 cmake-build-*/
+*.pyc
 
 # IDE files
 .vs/

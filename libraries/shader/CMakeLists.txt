@@ -12,6 +12,7 @@ target_include_directories(shader
 
 target_link_libraries(shader
         PRIVATE
-        glfw
+        glfw::glfw
+        glad::glad
         fmt::fmt
         deep::types)

@@ -16,15 +16,15 @@ OpenGLTexture::OpenGLTexture()
     int32_t width{0};
     int32_t height{0};
     int32_t nrChannels{0};
-    unsigned char *data = stbi_load("textures/brick.png", &width, &height, &nrChannels, 0);
-    if (data != nullptr)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        puts("Failed to load texture\n");
-    }
-    stbi_image_free(data);
+    // unsigned char *data = stbi_load("textures/brick.png", &width, &height, &nrChannels, 0);
+    // if (data != nullptr)
+    // {
+    //     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    //     glGenerateMipmap(GL_TEXTURE_2D);
+    // }
+    // else
+    // {
+    //     puts("Failed to load texture\n");
+    // }
+    // stbi_image_free(data);
 }

@@ -6,4 +6,4 @@ target_sources(types INTERFACE
         include/types/deep_concepts.h
         include/types/deep_types.h)
 
-target_link_libraries(types INTERFACE namedtype::namedtype)
+target_link_libraries(types INTERFACE project_options namedtype::namedtype)
