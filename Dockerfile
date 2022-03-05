@@ -15,8 +15,8 @@ RUN python3 -m pip install --upgrade pip setuptools && \
 # User-settable versions:
 # This Dockerfile should support gcc-[7, 8, 9, 10] and clang-[10, 11]
 # Earlier versions of clang will require significant modifications to the IWYU section
-ARG GCC_VER="10"
-ARG LLVM_VER="11"
+ARG GCC_VER="11"
+ARG LLVM_VER="14"
 
 # Add gcc-${GCC_VER}
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \

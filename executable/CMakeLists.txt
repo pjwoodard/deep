@@ -18,7 +18,8 @@ set_target_properties(deep_exe PROPERTIES OUTPUT_NAME "deep")
 
 target_link_libraries(
   deep_exe
-  PRIVATE docopt::docopt
+  PRIVATE project_warnings 
+          docopt::docopt
           fmt::fmt
           spdlog::spdlog
           stb::stb

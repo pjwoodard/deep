@@ -7,7 +7,8 @@ target_include_directories(window
 
 target_link_libraries(window
         PRIVATE
-        glfw
+        project_warnings
+        glfw::glfw
         glad::glad
         deep::math
         deep::shader
