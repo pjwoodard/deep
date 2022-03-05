@@ -21,6 +21,16 @@ concept Window = requires(T a)
     a.height();
 };
 
+template<typename T>
+concept Logger = requires(T a)
+{
+    a.debug("message");
+    a.info("message");
+    a.warn("message");
+    a.error("message");
+    a.critical("message");
+};
+
 constexpr auto to_integral(const scoped_enum_type auto e) -> std::underlying_type_t<decltype(e)>
 {
     return static_cast<std::underlying_type_t<decltype(e)>>(e);

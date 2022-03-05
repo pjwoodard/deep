@@ -23,6 +23,7 @@ target_link_libraries(
           fmt::fmt
           spdlog::spdlog
           stb::stb
+          deep::logger
           deep::math
           deep::shader
           deep::window
