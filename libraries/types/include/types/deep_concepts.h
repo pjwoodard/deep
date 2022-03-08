@@ -2,6 +2,7 @@
 
 #include <type_traits>
 #include <concepts>
+#include <string_view>
 
 namespace deep::concepts {
 template<class T>
@@ -14,21 +15,22 @@ template<typename T>
 concept OpenGLUniform = Numeric<T> || std::same_as<bool, T>;
 
 template<typename T>
-concept Window = requires(T a)
+concept Window = requires(T a, bool boolean)
 {
-    a.display();
     a.width();
     a.height();
+    a.set_vsync(boolean);
+    {a.is_vsync()} -> std::same_as<bool>;
 };
 
 template<typename T>
-concept Logger = requires(T a)
+concept Logger = requires(T a, std::string_view str)
 {
-    a.debug("message");
-    a.info("message");
-    a.warn("message");
-    a.error("message");
-    a.critical("message");
+    a.debug(str);
+    a.info(str);
+    a.warn(str);
+    a.error(str);
+    a.critical(str);
 };
 
 constexpr auto to_integral(const scoped_enum_type auto e) -> std::underlying_type_t<decltype(e)>

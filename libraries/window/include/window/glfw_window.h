@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 
 #include "types/deep_types.h"
+#include "logger/logger.h"
 
 namespace deep
 {
@@ -17,6 +18,12 @@ class GlfwWindow
 
     void display() const;
 
+    [[nodiscard]] int32_t width() const noexcept { return width_; };
+    [[nodiscard]] int32_t height() const noexcept {return height_;};
+    void set_vsync(bool enable);
+    [[nodiscard]] bool is_vsync() const noexcept {return is_vsync_;};
+    
+    // TODO: Ideally should never have to "get" the raw window
     GLFWwindow *get() { return self_raw_.get(); }
 
     void set_as_current_context() const;
@@ -47,8 +54,11 @@ class GlfwWindow
         }
     };
 
-    const int32_t width_{};
-    const int32_t height_{};
+    int32_t width_{};
+    int32_t height_{};
+    bool is_vsync_{false};
+
+    inline static bool glfw_initialized_{false};
 
     std::unique_ptr<GLFWwindow, GlfwWindowDeleter> self_raw_;
 };

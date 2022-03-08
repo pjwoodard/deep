@@ -1,12 +1,14 @@
+#pragma once
+
 #include <string_view>
 #include <memory>
 
 #include <spdlog/spdlog.h>
 
-class SpdlogLogger
+class SpdLogger
 {
 public:
-    SpdlogLogger(std::string_view name);
+    SpdLogger(std::string_view name);
 
     void debug(std::string_view message);
     void info(std::string_view message);

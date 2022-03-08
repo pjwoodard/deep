@@ -10,6 +10,8 @@ target_link_libraries(window
         project_warnings
         glfw::glfw
         glad::glad
+        deep::context
         deep::math
         deep::shader
-        deep::texture)
+        deep::texture
+        deep::logger)

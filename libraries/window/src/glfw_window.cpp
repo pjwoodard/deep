@@ -7,6 +7,9 @@
 #include "shaders/hello_triangle.h"
 #include "window/glfw_window.h"
 #include "texture/opengl_texture.h"
+#include "context/glfw_context.h"
+#include "logger/logger.h"
+#include "logger/spd_logger.h"
 
 using namespace std::literals;
 using namespace deep;
@@ -16,14 +19,22 @@ GlfwWindow::GlfwWindow(std::string_view title,
                        types::Height height)
   : width_{ width.get() }
   , height_{ height.get() }
-  , self_raw_(glfwCreateWindow(width_, height_, title.data(), nullptr, nullptr))
 {
+    if(!glfw_initialized_)
+    {
+      GlfwContext::init_glfw();
+    }
+
+    self_raw_.reset(glfwCreateWindow(width_, height_, title.data(), nullptr, nullptr));
+
+    // TODO: Use asserts here to log message and drop into platform specific breakpoint function 
     if (!self_raw_) {
-        throw std::runtime_error("glfwCreateWindow returned null"sv.data());
+        deep::Logger::critical_core("glfwCreateWindow returned null"sv.data());
     }
 
     glfwSetFramebufferSizeCallback(self_raw_.get(), framebuffer_size_callback);
 }
+
 void GlfwWindow::display() const
 {
     OpenGLProgram opengl_program{ vertex_shaders::hello_triangle, fragment_shaders::hello_triangle };
@@ -105,6 +116,11 @@ void GlfwWindow::display() const
 
     glDeleteBuffers(1, &vertex_buffer_id);
     glDeleteVertexArrays(1, &vertex_array_id);
+}
+
+void GlfwWindow::set_vsync(bool enable)
+{
+  glfwSwapInterval(static_cast<int32_t>(enable));
 }
 
 void GlfwWindow::set_as_current_context() const
