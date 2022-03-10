@@ -26,7 +26,7 @@ private:
 
     // This struct is used to hide the template details from the user 
     // and to contain all of our different system loggers
-    template <deep::concepts::LoggerType TLogger>
+    template <deep::concepts::Logger TLogger>
     struct LoggerGroup
     {
         // Have a client logger and a core logger, could expand these to be two different LoggerTypes in the future

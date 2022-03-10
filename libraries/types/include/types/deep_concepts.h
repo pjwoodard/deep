@@ -24,13 +24,19 @@ concept Window = requires(T a, bool boolean)
 };
 
 template<typename T>
-concept LoggerType = requires(T a, std::string_view str)
+concept Logger = requires(T a, std::string_view str)
 {
     a.debug(str);
     a.info(str);
     a.warn(str);
     a.error(str);
     a.critical(str);
+};
+
+template<typename T>
+concept Event = requires(T event)
+{
+    event.get_event_type();
 };
 
 constexpr auto to_integral(const scoped_enum_type auto e) -> std::underlying_type_t<decltype(e)>
