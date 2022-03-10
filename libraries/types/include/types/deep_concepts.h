@@ -24,7 +24,7 @@ concept Window = requires(T a, bool boolean)
 };
 
 template<typename T>
-concept Logger = requires(T a, std::string_view str)
+concept LoggerType = requires(T a, std::string_view str)
 {
     a.debug(str);
     a.info(str);

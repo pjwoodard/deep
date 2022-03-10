@@ -14,4 +14,5 @@ target_link_libraries(window
         deep::math
         deep::shader
         deep::texture
-        deep::logger)
+        deep::logger
+        deep::types)
