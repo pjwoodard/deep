@@ -5,4 +5,7 @@ target_include_directories(deep
         PUBLIC
             include/)
 
-target_link_libraries(deep PRIVATE deep::types)
+target_link_libraries(deep
+        PRIVATE
+            deep::types
+            deep::events)

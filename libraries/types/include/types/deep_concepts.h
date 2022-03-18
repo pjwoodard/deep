@@ -23,20 +23,21 @@ concept Window = requires(T a, bool boolean)
     {a.is_vsync()} -> std::same_as<bool>;
 };
 
-template<typename T>
-concept Logger = requires(T a, std::string_view str)
+template<typename LoggerType>
+concept Logger = requires(LoggerType logger, std::string_view str)
 {
-    a.debug(str);
-    a.info(str);
-    a.warn(str);
-    a.error(str);
-    a.critical(str);
+    logger.debug(str);
+    logger.info(str);
+    logger.warn(str);
+    logger.error(str);
+    logger.critical(str);
 };
 
 template<typename T>
 concept Event = requires(T event)
 {
-    event.get_event_type();
+    event.get_event_type() -> scoped_enum_type;
+    {event.get_name()} -> std::same_as<std::string_view>;
 };
 
 constexpr auto to_integral(const scoped_enum_type auto e) -> std::underlying_type_t<decltype(e)>

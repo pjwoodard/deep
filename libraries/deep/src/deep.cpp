@@ -4,7 +4,7 @@
 using namespace deep;
 
 Deep::Deep(const deep::concepts::Window auto& window)
-  : width_{ window.width() }
-  , height_{ window.height() }
-  , state_{ DeepState::GAME_MENU }
+//  : width_{ window.width() }
+//  , height_{ window.height() }
+//  , state_{ DeepState::GAME_MENU }
 {}

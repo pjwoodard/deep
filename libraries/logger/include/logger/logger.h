@@ -35,6 +35,6 @@ private:
     };
 
     // Change out logger implementation here
-    inline static LoggerGroup<SpdLogger> loggers_;
+    inline static const LoggerGroup<SpdLogger> loggers_;
 };
 };

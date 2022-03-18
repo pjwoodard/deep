@@ -1,7 +1,6 @@
 #include "shader/opengl_shader.h"
 
 #include <array>
-#include <cassert>
 
 #include <fmt/format.h>
 
@@ -25,7 +24,7 @@ void OpenGLShader::compile(std::string_view shader_program_str) const
         shader_program_str.data()
     };
 
-    glShaderSource(id_, 1, &shaders[0], nullptr);
+    glShaderSource(id_, 1, shaders.data(), nullptr);
     glCompileShader(id_);
 
     if (!shader_compilation_successful())

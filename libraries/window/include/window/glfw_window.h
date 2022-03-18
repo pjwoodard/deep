@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string_view>
+#include <functional>
 
 #include <GLFW/glfw3.h>
 
@@ -20,7 +21,7 @@ class GlfwWindow
 
     [[nodiscard]] int32_t width() const noexcept { return width_; };
     [[nodiscard]] int32_t height() const noexcept {return height_;};
-    void set_vsync(bool enable);
+    static void set_vsync(bool enable);
     [[nodiscard]] bool is_vsync() const noexcept {return is_vsync_;};
     
     // TODO: Ideally should never have to "get" the raw window

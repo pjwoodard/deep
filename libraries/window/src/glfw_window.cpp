@@ -9,7 +9,7 @@
 #include "texture/opengl_texture.h"
 #include "context/glfw_context.h"
 #include "logger/logger.h"
-#include "logger/spd_logger.h"
+#include "events/event.h"
 
 using namespace std::literals;
 using namespace deep;

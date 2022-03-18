@@ -15,4 +15,5 @@ target_link_libraries(window
         deep::shader
         deep::texture
         deep::logger
-        deep::types)
+        deep::types
+        deep::events)

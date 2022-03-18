@@ -1,6 +1,7 @@
 #pragma once
 
 #include "types/deep_concepts.h"
+#include "events/event.h"
 
 // Contains
 enum class DeepState
@@ -16,8 +17,8 @@ class Deep
     explicit Deep(const deep::concepts::Window auto &window);
 
   private:
-    [[maybe_unused]] int width_;
-    [[maybe_unused]] int height_;
-    [[maybe_unused]] DeepState state_;
+//    [[maybe_unused]] int width_;
+//    [[maybe_unused]] int height_;
+//    [[maybe_unused]] DeepState state_;
 };
 
