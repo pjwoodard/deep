@@ -46,6 +46,7 @@ option(ENABLE_TESTING "Enable Test Builds" ON)
 
 option(ENABLE_CONAN "Use Conan for dependency management" ON)
 if(ENABLE_CONAN)
+  set(CONAN_SYSTEM_INCLUDES ON)
   include(cmake/Conan.cmake)
   run_conan()
 endif()

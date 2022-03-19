@@ -28,4 +28,5 @@ target_link_libraries(
           deep::shader
           deep::window
           deep::context
-          deep::deep)
+          deep::deep
+          deep::events)

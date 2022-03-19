@@ -3,6 +3,8 @@
 #include "types/deep_concepts.h"
 #include "events/event.h"
 
+namespace deep
+{
 // Contains
 enum class DeepState
 {
@@ -13,12 +15,11 @@ enum class DeepState
 
 class Deep
 {
+  public:
     // Our constructor accepts anything that satisfies the window concept
-    explicit Deep(const deep::concepts::Window auto &window);
+    explicit Deep();
 
   private:
-//    [[maybe_unused]] int width_;
-//    [[maybe_unused]] int height_;
-//    [[maybe_unused]] DeepState state_;
+    EventDispatcher event_dispatcher_;
 };
-
+}

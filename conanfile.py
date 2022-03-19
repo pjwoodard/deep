@@ -14,7 +14,7 @@ class DeepProject(ConanFile):
         "namedtype/20190324",
         "stb/cci.20210713"
     )
-    generators = "cmake", "gcc", "txt", "cmake_find_package"
+    generators = "cmake", "gcc", "txt", "cmake_find_package", "visual_studio"
 
     def configure(self):
         self.options['glad'].shared = False
@@ -23,3 +23,6 @@ class DeepProject(ConanFile):
         self.options['glad'].spec = 'gl'
         self.options['glad'].gl_profile = 'core'
         self.options['glad'].gl_version = '4.6'
+
+        self.options['fmt'].header_only = True
+        self.options['spdlog'].header_only = True

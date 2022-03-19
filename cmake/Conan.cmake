@@ -6,10 +6,8 @@ macro(run_conan)
         "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
     file(
       DOWNLOAD
-      "https://raw.githubusercontent.com/conan-io/cmake-conan/v0.16.1/conan.cmake"
+      "https://raw.githubusercontent.com/conan-io/cmake-conan/release/0.17/conan.cmake"
       "${CMAKE_BINARY_DIR}/conan.cmake"
-      EXPECTED_HASH
-        SHA256=396e16d0f5eabdc6a14afddbcfff62a54a7ee75c6da23f32f7a31bc85db23484
       TLS_VERIFY ON)
   endif()
 
@@ -40,6 +38,24 @@ macro(run_conan)
 
     # Detects current build settings to pass into conan
     conan_cmake_autodetect(settings BUILD_TYPE ${TYPE})
+    
+    if("${settings}" STREQUAL "arch=x86_64;build_type=Debug;compiler=Visual Studio;compiler.version=17;compiler.runtime=MDd") 
+      set(settings "arch=x86_64;build_type=Debug;compiler=msvc;compiler.version=193;compiler.runtime=dynamic")
+    elseif("${settings}" STREQUAL "arch=x86_64;build_type=Debug;compiler=Visual Studio;compiler.version=17;compiler.runtime=MTd")
+      set(settings "arch=x86_64;build_type=Debug;compiler=msvc;compiler.version=193;compiler.runtime=static")
+    elseif("${settings}" STREQUAL "arch=x86_64;build_type=Release;compiler=Visual Studio;compiler.version=17;compiler.runtime=MD")
+      set(settings "arch=x86_64;build_type=Release;compiler=msvc;compiler.version=193;compiler.runtime=dynamic")
+    elseif("${settings}" STREQUAL "arch=x86_64;build_type=Release;compiler=Visual Studio;compiler.version=17;compiler.runtime=MT")
+      set(settings "arch=x86_64;build_type=Release;compiler=msvc;compiler.version=193;compiler.runtime=static")
+    elseif("${settings}" STREQUAL "arch=x86_64;build_type=MinSizeRel;compiler=Visual Studio;compiler.version=17;compiler.runtime=MD")
+      set(settings "arch=x86_64;build_type=MinSizeRel;compiler=msvc;compiler.version=193;compiler.runtime=dynamic")
+    elseif("${settings}" STREQUAL "arch=x86_64;build_type=MinSizeRel;compiler=Visual Studio;compiler.version=17;compiler.runtime=MT")
+      set(settings "arch=x86_64;build_type=MinSizeRel;compiler=msvc;compiler.version=193;compiler.runtime=static")
+    elseif("${settings}" STREQUAL "arch=x86_64;build_type=RelWithDebInfo;compiler=Visual Studio;compiler.version=17;compiler.runtime=MD")
+      set(settings "arch=x86_64;build_type=RelWithDebInfo;compiler=msvc;compiler.version=193;compiler.runtime=dynamic")
+    elseif("${settings}" STREQUAL "arch=x86_64;build_type=RelWithDebInfo;compiler=Visual Studio;compiler.version=17;compiler.runtime=MT")
+      set(settings "arch=x86_64;build_type=RelWithDebInfo;compiler=msvc;compiler.version=193;compiler.runtime=static")
+    endif()
 
     # PATH_OR_REFERENCE ${CMAKE_SOURCE_DIR} is used to tell conan to process
     # the external "conanfile.py" provided with the project

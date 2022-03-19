@@ -1,13 +1,14 @@
 #pragma once
 
-#include <memory>
-#include <string_view>
-#include <functional>
+#include "types/deep_types.h"
+#include "events/event.h"
+#include "logger/logger.h"
 
 #include <GLFW/glfw3.h>
 
-#include "types/deep_types.h"
-#include "logger/logger.h"
+#include <memory>
+#include <string_view>
+#include <functional>
 
 namespace deep
 {
@@ -27,15 +28,17 @@ class GlfwWindow
     // TODO: Ideally should never have to "get" the raw window
     GLFWwindow *get() { return self_raw_.get(); }
 
+  private:
     void set_as_current_context() const;
 
-  private:
     enum class OpenGLDataType : GLenum {
         FLOAT = GL_FLOAT
     };
 
     static void framebuffer_size_callback(GLFWwindow * /*window*/, int32_t width, int32_t height)
     {
+        deep::Logger::debug_client(fmt::format("Calling {}", "Function name"));
+        event_dispatcher_.publish(deep::WindowResizedEvent());
         glViewport(0, 0, width, height);
     }
 
@@ -62,6 +65,7 @@ class GlfwWindow
     inline static bool glfw_initialized_{false};
 
     std::unique_ptr<GLFWwindow, GlfwWindowDeleter> self_raw_;
+    inline static EventDispatcher event_dispatcher_;
 };
 
-}// namespace ace
+}// namespace deep
