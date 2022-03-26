@@ -63,6 +63,7 @@ class GlfwWindow
     bool is_vsync_{false};
 
     inline static bool glfw_initialized_{false};
+    bool is_current_context_window{false};
 
     std::unique_ptr<GLFWwindow, GlfwWindowDeleter> self_raw_;
     inline static EventDispatcher event_dispatcher_;

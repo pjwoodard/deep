@@ -32,17 +32,16 @@ GlfwWindow::GlfwWindow(std::string_view title,
 
 void GlfwWindow::display() const
 {
-    set_as_current_context();
+    if(!is_current_context_window)
+    {
+        set_as_current_context();
+    }
 
     while (glfwWindowShouldClose(self_raw_.get()) == 0) {
         processInput(self_raw_.get());
 
-        // glClearColor(0.0f, 0.0f, 0.0f, 1.0f ); //NOLINT
-        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //NOLINT
-
-        // glBindTexture(GL_TEXTURE_2D, texture.id());
-        // glBindVertexArray(vertex_array_id);
-        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+         glClearColor(0.0f, 0.0f, 0.0f, 1.0f ); //NOLINT
+         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //NOLINT
 
         glfwSwapBuffers(self_raw_.get());
         glfwPollEvents();
