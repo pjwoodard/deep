@@ -17,7 +17,7 @@ GlfwWindow::GlfwWindow(std::string_view title,
 {
     if(!glfw_initialized_)
     {
-      GlfwContext::init_glfw();
+        GlfwContext::init_glfw();
     }
 
     self_raw_.reset(glfwCreateWindow(width_, height_, title.data(), nullptr, nullptr));
@@ -32,10 +32,7 @@ GlfwWindow::GlfwWindow(std::string_view title,
 
 void GlfwWindow::display() const
 {
-    if(!is_current_context_window)
-    {
-        set_as_current_context();
-    }
+    set_as_current_context();
 
     while (glfwWindowShouldClose(self_raw_.get()) == 0) {
         processInput(self_raw_.get());
@@ -60,6 +57,6 @@ void GlfwWindow::set_as_current_context() const
     // TODO: Find a better place for this, reinterpret_cast is necessary here
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     if (gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 0) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        deep::Logger::error_core("Failed to initialize GLAD"sv.data());
     }
 }

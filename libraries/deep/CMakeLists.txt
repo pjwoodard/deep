@@ -7,6 +7,7 @@ target_include_directories(deep
 
 target_link_libraries(deep
         PRIVATE
+            project_warnings
             deep::types
             deep::events
             deep::logger

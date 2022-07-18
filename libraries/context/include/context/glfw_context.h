@@ -6,8 +6,9 @@ namespace GlfwContext
 {
     [[maybe_unused]] static void init_glfw()
     {
-        // TODO: Check return code of GLFW init
-        glfwInit();
+        const bool init_successful = glfwInit() == GLFW_TRUE;
+        assert(init_successful);
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);

@@ -13,9 +13,9 @@ OpenGLTexture::OpenGLTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     // load and generate the texture
-    int32_t width{0};
-    int32_t height{0};
-    int32_t nrChannels{0};
+//    int32_t width{0};
+//    int32_t height{0};
+//    int32_t nrChannels{0};
     // unsigned char *data = stbi_load("textures/brick.png", &width, &height, &nrChannels, 0);
     // if (data != nullptr)
     // {

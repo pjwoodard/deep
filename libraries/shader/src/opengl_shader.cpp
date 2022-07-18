@@ -30,9 +30,9 @@ void OpenGLShader::compile(std::string_view shader_program_str) const
     if (!shader_compilation_successful())
     {
         // TODO: Clean this up, figure out error handling method
-        constexpr int32_t                      info_log_buff_size{ 512 };
+        constexpr int32_t info_log_buff_size{ 512 };
         std::array<GLchar, info_log_buff_size> info_log{};
-        glGetShaderInfoLog(id_, info_log.size(), nullptr, info_log.data());
+        glGetShaderInfoLog(id_, static_cast<GLsizei>(info_log.size()), nullptr, info_log.data());
         puts(fmt::format("ERROR::SHADER::VERTEX::COMPILATION_FAILED: {}\n", info_log.data()).c_str());
     }
 }

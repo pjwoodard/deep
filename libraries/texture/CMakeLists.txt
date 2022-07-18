@@ -9,4 +9,6 @@ target_link_libraries(texture
         PRIVATE
             glfw::glfw
             glad::glad
-            stb::stb)
+            stb::stb
+            project_warnings
+        )
