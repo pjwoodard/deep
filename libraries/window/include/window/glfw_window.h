@@ -37,7 +37,7 @@ class GlfwWindow
 
     static void framebuffer_size_callback(GLFWwindow * /*window*/, int32_t width, int32_t height)
     {
-        deep::Logger::debug_client(fmt::format("Calling {}", "Function name"));
+        deep::Logger::debug_core(fmt::format("Calling {}", __FUNCTION__));
         event_dispatcher_.publish(deep::WindowResizedEvent());
         glViewport(0, 0, width, height);
     }
