@@ -7,5 +7,5 @@ using namespace deep;
 
 Deep::Deep()
 {
-    event_dispatcher_.subscribe<deep::WindowResizedEvent>([]() { deep::Logger::debug_client(fmt::format("Uh oh, here we go {}", 12)); });
+    event_dispatcher_.subscribe<deep::WindowResizedEvent>([]() { deep::Logger::debug_client(fmt::format("Uh oh, here we go")); });
 }

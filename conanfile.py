@@ -12,7 +12,8 @@ class DeepProject(ConanFile):
         "glfw/3.3.6",
         "glad/0.1.34",
         "namedtype/20190324",
-        "stb/cci.20210713"
+        "stb/cci.20210713",
+        "imgui/cci.20220621+1.88.docking"
     )
     generators = "cmake", "gcc", "txt", "cmake_find_package", "visual_studio"
 

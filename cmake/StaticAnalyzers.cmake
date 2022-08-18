@@ -27,7 +27,7 @@ if(ENABLE_CLANG_TIDY)
       list(APPEND CMAKE_CXX_CLANG_TIDY -warnings-as-errors=*)
     endif()
   else()
-    message(SEND_ERROR "clang-tidy requested but executable not found")
+    message(SEND_WARNING "clang-tidy requested but executable not found")
   endif()
 endif()
 

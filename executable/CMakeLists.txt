@@ -2,8 +2,8 @@ option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
 
 # qt
 if(CPP_STARTER_USE_QT)
-  message("Using Qt")
-  add_subdirectory(qt)
+    message("Using Qt")
+    add_subdirectory(qt)
 endif()
 
 find_package(fmt)
@@ -17,16 +17,19 @@ add_executable(deep_exe deep_exe.cpp)
 set_target_properties(deep_exe PROPERTIES OUTPUT_NAME "deep")
 
 target_link_libraries(
-  deep_exe
-  PRIVATE project_warnings 
-          docopt::docopt
-          fmt::fmt
-          spdlog::spdlog
-          stb::stb
-          deep::logger
-          deep::math
-          deep::shader
-          deep::window
-          deep::context
-          deep::deep
-          deep::events)
+        deep_exe
+        PRIVATE
+            project_options
+            project_warnings
+            docopt::docopt
+            fmt::fmt
+            spdlog::spdlog
+            stb::stb
+            deep::logger
+            deep::math
+            deep::shader
+            deep::window
+            deep::context
+            deep::deep
+            deep::events
+            deep::layer)
