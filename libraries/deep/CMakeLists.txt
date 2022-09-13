@@ -6,9 +6,11 @@ target_include_directories(deep
             include/)
 
 target_link_libraries(deep
-        PRIVATE
-            project_warnings
+        PUBLIC
+            deep::window
             deep::types
             deep::events
             deep::logger
+        PRIVATE
+            project_warnings
             fmt::fmt)

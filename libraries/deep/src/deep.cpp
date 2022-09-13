@@ -1,5 +1,5 @@
 #include "deep/deep.h"
-#include "events/event.h"
+#include "events/window_resized_event.h"
 #include "fmt/format.h"
 #include "logger/logger.h"
 

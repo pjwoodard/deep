@@ -1,8 +1,10 @@
 #pragma once
 
-#include "types/deep_types.h"
-#include "events/event.h"
+#include "events/event_dispatcher.h"
+#include "events/window_resized_event.h"
+#include "events/event_t.h"
 #include "logger/logger.h"
+#include "types/deep_types.h"
 
 #include <GLFW/glfw3.h>
 
@@ -20,8 +22,24 @@ class GlfwWindow
 
     void display() const;
 
-    [[nodiscard]] int32_t width() const noexcept { return width_; };
-    [[nodiscard]] int32_t height() const noexcept {return height_;};
+    [[nodiscard]] int32_t width() const noexcept
+    {
+        int32_t width{0};
+        int32_t height{0};
+        glfwGetWindowSize(self_raw_.get(), &width, &height);
+
+        return width;
+    };
+
+    [[nodiscard]] int32_t height() const noexcept
+    {
+        int32_t width{0};
+        int32_t height{0};
+        glfwGetWindowSize(self_raw_.get(), &width, &height);
+
+        return height;
+    };
+
     static void set_vsync(bool enable);
     [[nodiscard]] bool is_vsync() const noexcept {return is_vsync_;};
     
@@ -66,7 +84,7 @@ class GlfwWindow
     bool is_current_context_window{false};
 
     std::unique_ptr<GLFWwindow, GlfwWindowDeleter> self_raw_;
-    inline static EventDispatcher event_dispatcher_;
+    inline static deep::EventDispatcher event_dispatcher_;
 };
 
 }// namespace deep

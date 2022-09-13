@@ -57,5 +57,6 @@ if(ENABLE_TESTING)
   add_subdirectory(tests)
 endif()
 
+add_subdirectory(external)
 add_subdirectory(libraries)
 add_subdirectory(executable)

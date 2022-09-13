@@ -1,15 +1,8 @@
-option(CPP_STARTER_USE_QT "Enable compilation of QT sample" OFF)
-
-# qt
-if(CPP_STARTER_USE_QT)
-    message("Using Qt")
-    add_subdirectory(qt)
-endif()
-
 find_package(fmt)
 find_package(spdlog)
 find_package(docopt)
 find_package(stb)
+find_package(imgui)
 
 # Generic test that uses conan libs
 add_executable(deep_exe deep_exe.cpp)

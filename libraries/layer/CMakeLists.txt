@@ -1,12 +1,13 @@
 add_library(layer
-        src/layer.cpp)
+        src/layer.cpp
+        src/layer_stack.cpp)
 
 add_library(deep::layer ALIAS layer)
 
 target_include_directories(
         layer
         PUBLIC
-            include/)
+            include)
 
 
 target_link_libraries(

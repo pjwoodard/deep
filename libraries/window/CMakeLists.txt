@@ -6,14 +6,15 @@ target_include_directories(window
         PRIVATE ${CMAKE_SOURCE_DIR}/resources)
 
 target_link_libraries(window
-        PRIVATE
-        project_warnings
-        glfw::glfw
-        glad::glad
-        deep::context
-        deep::math
-        deep::shader
-        deep::texture
-        deep::logger
-        deep::types
-        deep::events)
+        PUBLIC
+            project_warnings
+            glfw::glfw
+            glad::glad
+            deep::context
+            deep::math
+            deep::shader
+            deep::texture
+            deep::logger
+            deep::types
+            deep::events
+        )

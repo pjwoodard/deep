@@ -1,4 +1,4 @@
-BasedOnStyle: Mozilla
+BasedOnStyle: Google
 IndentWidth: 4
 AlwaysBreakAfterReturnType: None
 AlwaysBreakAfterDefinitionReturnType: None

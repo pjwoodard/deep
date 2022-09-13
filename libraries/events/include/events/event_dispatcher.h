@@ -9,13 +9,6 @@
 #include <string_view>
 
 namespace deep {
-
-class WindowResizedEvent
-{
-  public:
-    void get_event_type() {}
-};
-
 class EventDispatcher
 {
   public:

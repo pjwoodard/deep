@@ -3,6 +3,8 @@
 #include <memory>
 #include <string_view>
 
+#include "types/deep_concepts.h"
+
 // TODO: Add docs about exactly what something has to be to be a Logger_t
 // TODO: Maybe enforce with templates  for better compiler errors ???
 struct Logger_t
@@ -16,21 +18,8 @@ struct Logger_t
     ~Logger_t() = default;
     Logger_t(const Logger_t& other) = delete;
     Logger_t& operator=(const Logger_t& other) = delete;
-
-    Logger_t(Logger_t&& other) noexcept
-      : self(std::move(other.self))
-    {
-        debug("Move Constructor Called");
-    }
-
-    Logger_t& operator=(Logger_t&& other) noexcept
-    {
-        debug("Move Assignment Operator Called");
-
-        self = std::move(other.self);
-
-        return *this;
-    }
+    Logger_t(Logger_t&& other) noexcept = default;
+    Logger_t& operator=(Logger_t&& other) noexcept = default;
 
     void debug(std::string_view msg) { self->debug(msg); }
 
@@ -72,4 +61,3 @@ struct Logger_t
 
     std::unique_ptr<Interface_t> self;
 };
-
