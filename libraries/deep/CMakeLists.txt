@@ -11,6 +11,7 @@ target_link_libraries(deep
             deep::types
             deep::events
             deep::logger
+            deep::layer
         PRIVATE
             project_warnings
             fmt::fmt)

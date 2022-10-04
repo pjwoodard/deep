@@ -28,21 +28,19 @@ GlfwWindow::GlfwWindow(std::string_view title,
     }
 
     glfwSetFramebufferSizeCallback(self_raw_.get(), framebuffer_size_callback);
+
+    set_as_current_context();
 }
 
-void GlfwWindow::display() const
+void GlfwWindow::on_update()
 {
-    set_as_current_context();
+    processInput(self_raw_.get());
 
-    while (glfwWindowShouldClose(self_raw_.get()) == 0) {
-        processInput(self_raw_.get());
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f ); //NOLINT
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //NOLINT
 
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f ); //NOLINT
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //NOLINT
-
-        glfwSwapBuffers(self_raw_.get());
-        glfwPollEvents();
-    }
+    glfwSwapBuffers(self_raw_.get());
+    glfwPollEvents();
 }
 
 void GlfwWindow::set_vsync(bool enable)

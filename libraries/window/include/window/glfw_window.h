@@ -20,8 +20,6 @@ class GlfwWindow
   public:
     GlfwWindow(std::string_view title, types::Width width, types::Height height);
 
-    void display() const;
-
     [[nodiscard]] int32_t width() const noexcept
     {
         int32_t width{0};
@@ -42,12 +40,13 @@ class GlfwWindow
 
     static void set_vsync(bool enable);
     [[nodiscard]] bool is_vsync() const noexcept {return is_vsync_;};
-    
+    void set_as_current_context() const;
+    void on_update();
+
     // TODO: Ideally should never have to "get" the raw window
     GLFWwindow *get() { return self_raw_.get(); }
 
   private:
-    void set_as_current_context() const;
 
     enum class OpenGLDataType : GLenum {
         FLOAT = GL_FLOAT

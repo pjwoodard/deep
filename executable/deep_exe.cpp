@@ -1,4 +1,10 @@
+#include <glad/glad.h>
+
+#include <chrono>
+#include <thread>
+
 #include "deep/deep.h"
+#include "imgui/imgui_layer.h"
 #include "logger/logger.h"
 #include "window/glfw_window.h"
 
@@ -9,13 +15,11 @@ static constexpr deep::types::Height deep_height{600};
 
 int main()
 {
-    deep::Logger::info_core("Starting Deep!");
-    deep::Logger::debug_core("Launching Window!");
-
+    deep::Logger::info_core("Starting Deep by creating application");
     deep::Deep app;
-
-    deep::GlfwWindow window("Title", deep_width, deep_height);
-    window.display();
+    auto layer = deep::ImGuiLayer{};
+    app.push_layer(layer);
+    app.run();
 
     return 0;
 }

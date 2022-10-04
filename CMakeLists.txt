@@ -51,6 +51,17 @@ if(ENABLE_CONAN)
   run_conan()
 endif()
 
+# Packages are project-wide
+find_package(fmt)
+find_package(spdlog)
+find_package(docopt)
+find_package(glfw3)
+find_package(glad)
+find_package(namedtype)
+find_package(stb)
+find_package(imgui)
+find_package(Catch2)
+
 if(ENABLE_TESTING)
   enable_testing()
   message("Building Tests. Be sure to check out test/constexpr_tests for constexpr testing")

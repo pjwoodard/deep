@@ -11,10 +11,10 @@ target_link_libraries(
         PUBLIC
             deep::deep
             deep::events
-        PRIVATE
-            project_options
-            project_warnings
             imgui::imgui
             glfw::glfw
             external::imgui_impl_opengl3
+        PRIVATE
+            project_options
+            project_warnings
 )

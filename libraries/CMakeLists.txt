@@ -1,12 +1,3 @@
-find_package(fmt)
-find_package(spdlog)
-find_package(docopt)
-find_package(glfw3 REQUIRED)
-find_package(glad REQUIRED)
-find_package(namedtype REQUIRED)
-find_package(stb REQUIRED)
-find_package(imgui REQUIRED)
-
 add_subdirectory(shader)
 add_subdirectory(texture)
 add_subdirectory(types)

@@ -8,8 +8,12 @@ target_include_directories(
 
 target_link_libraries(
         imgui_impl_opengl3
-        PRIVATE
+        PUBLIC
             project_options
             project_warnings
             imgui::imgui
+            glad::glad
 )
+
+target_compile_definitions(imgui_impl_opengl3 PUBLIC IMGUI_IMPL_OPENGL_LOADER_CUSTOM)
+

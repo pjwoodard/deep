@@ -1,9 +1,3 @@
-find_package(fmt)
-find_package(spdlog)
-find_package(docopt)
-find_package(stb)
-find_package(imgui)
-
 # Generic test that uses conan libs
 add_executable(deep_exe deep_exe.cpp)
 
@@ -25,4 +19,5 @@ target_link_libraries(
             deep::context
             deep::deep
             deep::events
+            deep::imgui
             deep::layer)

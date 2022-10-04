@@ -1,5 +1,4 @@
 #pragma once
-
 #include <memory>
 #include <string_view>
 
@@ -44,12 +43,18 @@ struct Window_t
         return self_->height();
     }
 
+    void on_update()
+    {
+        return self_->on_update();
+    }
+
   private:
     struct Interface_t
     {
         virtual ~Interface_t() = default;
         virtual int32_t width() = 0;
         virtual int32_t height() = 0;
+        virtual void on_update() = 0;
     };
 
     template<typename T>
@@ -62,6 +67,7 @@ struct Window_t
 
         int32_t width() override { return self_.width(); }
         int32_t height() override { return self_.height(); }
+        void on_update() override { return self_.on_update(); }
 
       private:
         T self_;
