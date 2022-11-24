@@ -1,6 +1,7 @@
-BasedOnStyle: Google
+BasedOnStyle: Mozilla
 IndentWidth: 4
 AlwaysBreakAfterReturnType: None
+BreakBeforeBraces: Allman
 AlwaysBreakAfterDefinitionReturnType: None
 BinPackArguments: false
 ColumnLimit: 180

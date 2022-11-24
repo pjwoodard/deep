@@ -6,7 +6,8 @@
 #include "logger/spd_logger.h"
 #include "types/deep_concepts.h"
 
-namespace deep {
+namespace deep
+{
 
 class Logger
 {
@@ -19,9 +20,19 @@ class Logger
     static void error_core(std::string_view error_msg) { logger_.error(error_msg); }
     static void critical_core(std::string_view critical_msg) { logger_.critical(critical_msg); }
 
-//    TODO - Maybe implement multiple loggers / ability to reference any arbitrary logger by name and use it to log
+    static void assert_and_log(std::string_view assert_msg, bool predicate)
+    {
+        if (!predicate)
+        {
+            logger_.critical(assert_msg);
+        }
+
+        assert(predicate);
+    }
+
+    //    TODO - Maybe implement multiple loggers / ability to reference any arbitrary logger by name and use it to log
   private:
     // We default to spdlog for our logger
     inline static Logger_t logger_{ SpdLogger("Core Logger") };
 };
-};
+}; // namespace deep
