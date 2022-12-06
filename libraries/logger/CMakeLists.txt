@@ -5,8 +5,9 @@ add_library(logger
 add_library(deep::logger ALIAS logger)
 
 target_include_directories(logger
-        PUBLIC
-            include/)
+    PUBLIC
+        include/
+)
 
 target_link_libraries(logger 
     PUBLIC
@@ -14,5 +15,5 @@ target_link_libraries(logger
         deep::types
     PRIVATE
         project_warnings
-    )
+)
 

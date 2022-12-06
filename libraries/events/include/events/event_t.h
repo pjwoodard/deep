@@ -3,14 +3,15 @@
 #include <memory>
 #include <string_view>
 
-#include "logger/logger.h"
+#include "events.h"
 #include "events/event_t.h"
+#include "logger/logger.h"
 
-namespace deep {
+namespace deep::events {
 struct Event_t
 {
     template<typename T>
-    Event_t(T t) noexcept
+    explicit Event_t(T t) noexcept
       : self{ std::make_unique<Implementation_t<T>>(std::move(t)) }
     {
     }
@@ -34,23 +35,24 @@ struct Event_t
         return *this;
     }
 
-    void get_event_type() { self->get_event_type(); }
+    EventType get_event_type() const { return self->get_event_type(); }
 
   private:
     struct Interface_t
     {
         virtual ~Interface_t() = default;
-        virtual void get_event_type() = 0;
+        virtual EventType get_event_type() const = 0;
     };
 
     template<typename T>
-    struct Implementation_t : Interface_t
+    struct Implementation_t : public Interface_t
     {
         explicit Implementation_t(T s) noexcept
           : self{ std::move(s) }
         {
         }
-        void get_event_type() override { self.get_event_type(); }
+
+        EventType get_event_type() const override { return self.get_event_type(); }
 
       private:
         T self;

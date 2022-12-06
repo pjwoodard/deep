@@ -2,6 +2,7 @@
 
 #include "deep/deep.h"
 #include "imgui_impl_opengl3.h"
+#include "events/event_dispatcher.h"
 
 using namespace deep;
 
@@ -32,4 +33,9 @@ void ImGuiLayer::on_update() {
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void ImGuiLayer::on_event(const deep::Event_t& event)
+{
+    event_dispatcher_.subscribe<event.get_event_type()>()
 }

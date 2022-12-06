@@ -31,7 +31,7 @@ struct Layer_t {
     void on_attach() { self->on_attach(); }
     void on_detach() { self->on_detach(); }
     void on_update() { self->on_update(); }
-    void on_event(const deep::Event_t& event) { self->on_event(event); }
+    void on_event(const deep::events::Event_t& event) { self->on_event(event); }
 
    private:
     struct Interface_t {
@@ -39,7 +39,7 @@ struct Layer_t {
         virtual void on_attach() = 0;
         virtual void on_detach() = 0;
         virtual void on_update() = 0;
-        virtual void on_event(const deep::Event_t& event) = 0;
+        virtual void on_event(const deep::events::Event_t& event) = 0;
     };
 
     template <typename T>
@@ -49,7 +49,7 @@ struct Layer_t {
         void on_attach() override { self.on_attach(); }
         void on_detach() override { self.on_detach(); }
         void on_update() override { self.on_update(); }
-        void on_event(const deep::Event_t& event) override { self.on_event(event); }
+        void on_event(const deep::events::Event_t& event) override { self.on_event(event); }
 
        private:
         T self;

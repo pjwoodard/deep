@@ -11,40 +11,23 @@
 #include <stack>
 
 namespace deep {
-// Contains
-enum class DeepState { GAME_ACTIVE, GAME_MENU, GAME_WIN };
 
 class Deep {
    public:
     explicit Deep();
 
-    static deep::Window_t& GetWindow() { return window_; };
+    [[nodiscard]] static deep::Window_t& GetWindow() { return window_; };
 
     // TODO: Should "move" version of push layer only accept rvalue references?
     // TODO: emplace_layer vs push_layer
-    void push_layer(Layer_t layer) {
-        layer.on_attach();
-        layers_.push_back(std::move(layer));
-    };
-
-    void run()
-    {
-        while(running_)
-        {
-            for(auto& layer : layers_)
-            {
-                layer.on_update();
-            }
-            window_.on_update();
-        }
-    }
+    void push_layer(Layer_t layer);
+    void run();
 
    private:
-    deep::EventDispatcher event_dispatcher_;
+    deep::events::EventDispatcher event_dispatcher_;
+    bool running_{false};
+    std::vector<Layer_t> layers_;
 
     inline static deep::Window_t window_{deep::GlfwWindow{"Deep Main Application Window", types::Width(800), types::Height(600)}};
-
-    bool running_{true};
-    std::vector<Layer_t> layers_;
 };
 }  // namespace deep

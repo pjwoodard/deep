@@ -2,7 +2,7 @@
 
 #include "events/event_dispatcher.h"
 #include "events/event_t.h"
-#include "events/window_resized_event.h"
+#include "events/events.h"
 #include "logger/logger.h"
 #include "types/deep_types.h"
 
@@ -14,7 +14,6 @@
 
 namespace deep
 {
-
 class GlfwWindow
 {
   public:
@@ -44,24 +43,23 @@ class GlfwWindow
     void on_update();
 
   private:
-    static void key_pressed(GLFWwindow* window, int key, int scancode, int action, int mods);
-    static void mouse_button_pressed(GLFWwindow* window, int button, int action, int mods);
-    static void framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width, int32_t height);
-    void processInput(GLFWwindow* window);
-
     struct GlfwWindowDeleter
     {
         void operator()(GLFWwindow* raw_window) const { glfwDestroyWindow(raw_window); }
     };
 
+    static void key_pressed(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static void mouse_button_pressed(GLFWwindow* window, int button, int action, int mods);
+    static void framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width, int32_t height);
+    void processInput(GLFWwindow* window);
+
     int32_t width_{};
     int32_t height_{};
     bool is_vsync_{ false };
     bool glfw_initialized_{ false };
-    bool is_current_context_window{ false };
 
     std::unique_ptr<GLFWwindow, GlfwWindowDeleter> self_raw_;
-    inline static deep::EventDispatcher event_dispatcher_;
+    inline static deep::events::EventDispatcher event_dispatcher_;
 };
 
 } // namespace deep

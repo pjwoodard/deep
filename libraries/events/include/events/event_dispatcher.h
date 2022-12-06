@@ -3,39 +3,47 @@
 #include <functional>
 #include <typeindex>
 #include <unordered_map>
-
-#include "types/deep_concepts.h"
-
 #include <string_view>
 
-namespace deep {
+#include <fmt/format.h>
+
+#include "event_t.h"
+#include "logger/logger.h"
+#include "types/deep_concepts.h"
+
+namespace deep::events {
 class EventDispatcher
 {
   public:
-    void publish(const deep::concepts::Event auto &event)
+    void publish(const deep::events::Event_t &event)
     {
-        const auto functions_to_call = event_map_.at(typeid(decltype(event)));
-        for (const auto &func : functions_to_call)
+        if(event_map_.contains(event.get_event_type()))
         {
-            func();
+            const auto functions_to_call = event_map_.at(event.get_event_type());
+            for (const auto &func : functions_to_call)
+            {
+                func(event);
+            }
+        }
+        else
+        {
+            deep::Logger::warn_core("Unsubscribed event caught");
         }
     }
 
-    template<deep::concepts::Event EventLike, typename FunctionType>
-    void subscribe(FunctionType func)
+    template<typename FunctionType>
+    void subscribe(const deep::events::EventType &event_type, FunctionType func)
     {
-        const std::type_index event_id = typeid(EventLike);
-
         // If we have the thing in the map already, add the function to the vector
-        if (event_map_.contains(event_id))
+        if (event_map_.contains(event_type))
         {
-            auto &functions_to_call = event_map_.at(event_id);
+            auto &functions_to_call = event_map_.at(event_type);
             functions_to_call.push_back(func);;
         }
         else
         {
             // Otherwise, create a vector with the function in it, and add it to the map
-            event_map_.emplace(typeid(EventLike), std::vector<std::function<void(void)>>{func});
+            event_map_.emplace(event_type, std::vector<std::function<void(const deep::events::Event_t&)>>{func});
         }
     }
 
@@ -43,7 +51,6 @@ class EventDispatcher
     //  Event map is shared amongst all EventDispatchers
     // TODO: Thread Safety
     // TODO: Faster flatter map
-    // TODO: Probably don't use typeid, this is a good first go though :)
-    inline static std::unordered_map<std::type_index, std::vector<std::function<void(void)>>> event_map_;
+    inline static std::unordered_map<deep::events::EventType, std::vector<std::function<void(const deep::events::Event_t&)>>> event_map_;
 };
 }

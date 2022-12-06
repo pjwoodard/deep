@@ -10,7 +10,7 @@ class Layer
     void on_attach() {}
     void on_detach() {}
     void on_update() {}
-    void on_event(const deep::Event_t &/*event*/) {}
+    void on_event(const deep::events::Event_t &/*event*/) {}
 };
 
 } // deep

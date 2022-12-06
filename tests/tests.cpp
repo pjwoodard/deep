@@ -3,7 +3,7 @@
 #include <catch2/catch.hpp>
 
 #include "events/event_dispatcher.h"
-#include "events/window_resized_event.h"
+#include "events/events.h"
 
 class TestEvent
 {

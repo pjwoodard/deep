@@ -1,20 +1,20 @@
-#include "window/glfw_window.h"
+// Third party includes
+#include <glad/glad.h>
 
+// std library includes
 #include <string_view>
 
+// self include
+#include "window/glfw_window.h"
+
+// private includes
 #include "context/glfw_context.h"
 #include "logger/logger.h"
 #include "math/matrix.h"
-#include "program/opengl_program.h"
 
 using namespace std::literals;
 using namespace deep;
 using namespace std::placeholders;
-
-enum class OpenGLDataType : GLenum
-{
-    FLOAT = GL_FLOAT
-};
 
 GlfwWindow::GlfwWindow(std::string_view title, types::Width width, types::Height height)
   : glfw_initialized_{ GlfwContext::init_glfw() }
@@ -66,6 +66,8 @@ void GlfwWindow::mouse_button_pressed(GLFWwindow* window, int button, int action
     }
 
     deep::Logger::debug_core(fmt::format("Mouse button pressed. Button: {}, Action: {}, Mods: {}", button, action, mods));
+
+//    event_dispatcher_.publish(deep::events::MouseButtonPressedEvent{});
 }
 
 void GlfwWindow::key_pressed(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -76,12 +78,16 @@ void GlfwWindow::key_pressed(GLFWwindow* window, int key, int scancode, int acti
     }
 
     deep::Logger::debug_core(fmt::format("Key pressed. Key: {}, Scan Code: {}, Action: {}, Mods: {}", key, scancode, action, mods));
+
+//    event_dispatcher_.publish(deep::events::KeyPressedEvent{});
 }
 
 void GlfwWindow::framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width, int32_t height)
 {
     deep::Logger::debug_core(fmt::format("Calling {}", __FUNCTION__));
-    event_dispatcher_.publish(deep::WindowResizedEvent());
+
+    event_dispatcher_.publish(deep::events::WindowResizedEvent{});
+
     glViewport(0, 0, width, height);
 }
 
