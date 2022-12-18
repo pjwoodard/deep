@@ -10,7 +10,7 @@ target_sources(
         types
         INTERFACE
             include/events/event_t.h
-            include/events/event_dispatcher.h
+        include/events/signal.h
         include/events/events.h)
 
 target_link_libraries(

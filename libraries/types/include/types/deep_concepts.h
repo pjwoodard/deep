@@ -33,14 +33,7 @@ concept Logger = requires(LoggerType logger, std::string_view str)
     logger.critical(str);
 };
 
-template<typename EventType>
-concept Event = requires(EventType event)
-{
-    event.get_event_type();
-};
-
-
-constexpr auto to_integral(const scoped_enum_type auto e) -> decltype(auto) 
+constexpr auto to_integral(const scoped_enum_type auto e) -> decltype(auto)
 {
     return static_cast<std::underlying_type_t<decltype(e)>>(e);
 }

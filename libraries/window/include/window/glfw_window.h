@@ -1,8 +1,7 @@
 #pragma once
 
-#include "events/event_dispatcher.h"
-#include "events/event_t.h"
 #include "events/events.h"
+#include "events/signal.h"
 #include "logger/logger.h"
 #include "types/deep_types.h"
 
@@ -11,6 +10,8 @@
 #include <functional>
 #include <memory>
 #include <string_view>
+
+using namespace deep::events;
 
 namespace deep
 {
@@ -42,6 +43,9 @@ class GlfwWindow
     void set_as_current_context() const;
     void on_update();
 
+    [[nodiscard]] auto *get_raw_window() const { return self_raw_.get(); }
+
+
   private:
     struct GlfwWindowDeleter
     {
@@ -57,9 +61,13 @@ class GlfwWindow
     int32_t height_{};
     bool is_vsync_{ false };
     bool glfw_initialized_{ false };
+    static constexpr int32_t swap_interval_{1};
 
     std::unique_ptr<GLFWwindow, GlfwWindowDeleter> self_raw_;
-    inline static deep::events::EventDispatcher event_dispatcher_;
+
+    inline static deep::events::Signal<int32_t, int32_t> on_window_resized_;
+    inline static deep::events::Signal<int32_t> on_mouse_button_pressed_;
+    inline static deep::events::Signal<int32_t, int32_t, int32_t, int32_t> on_key_pressed_;
 };
 
 } // namespace deep

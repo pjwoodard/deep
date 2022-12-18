@@ -14,6 +14,7 @@ target_link_libraries(
             imgui::imgui
             glfw::glfw
             external::imgui_impl_opengl3
+            external::imgui_impl_glfw
         PRIVATE
             project_options
             project_warnings

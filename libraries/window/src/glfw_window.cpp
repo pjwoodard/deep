@@ -26,19 +26,20 @@ GlfwWindow::GlfwWindow(std::string_view title, types::Width width, types::Height
     deep::Logger::assert_and_log("glfwCreateWindow returned null"sv.data(), !self_raw_ == false);
 
     // Set GLFW callbacks
-    glfwSetFramebufferSizeCallback(self_raw_.get(), &framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(self_raw_.get(), &GlfwWindow::framebuffer_size_callback);
     glfwSetKeyCallback(self_raw_.get(), &GlfwWindow::key_pressed);
     glfwSetMouseButtonCallback(self_raw_.get(), &GlfwWindow::mouse_button_pressed);
 
     set_as_current_context();
+
+    glfwSwapInterval(swap_interval_);
 }
 
 void GlfwWindow::on_update()
 {
-    processInput(self_raw_.get());
+    glfwPollEvents();
 
     glfwSwapBuffers(self_raw_.get());
-    glfwPollEvents();
 }
 
 void GlfwWindow::set_vsync(bool enable)
@@ -58,35 +59,31 @@ void GlfwWindow::set_as_current_context() const
     }
 }
 
-void GlfwWindow::mouse_button_pressed(GLFWwindow* window, int button, int action, int mods)
+void GlfwWindow::mouse_button_pressed(GLFWwindow* window, int /*button*/, int /*action*/, int /*mods*/)
 {
     if (window == nullptr)
     {
         deep::Logger::critical_core(fmt::format("Window is null in function {}", __FUNCTION__));
     }
 
-    deep::Logger::debug_core(fmt::format("Mouse button pressed. Button: {}, Action: {}, Mods: {}", button, action, mods));
-
 //    event_dispatcher_.publish(deep::events::MouseButtonPressedEvent{});
 }
 
-void GlfwWindow::key_pressed(GLFWwindow* window, int key, int scancode, int action, int mods)
+void GlfwWindow::key_pressed(GLFWwindow* window, int32_t key, int scancode, int action, int mods)
 {
     if (window == nullptr)
     {
         deep::Logger::critical_core(fmt::format("Window is null"));
     }
 
-    deep::Logger::debug_core(fmt::format("Key pressed. Key: {}, Scan Code: {}, Action: {}, Mods: {}", key, scancode, action, mods));
-
-//    event_dispatcher_.publish(deep::events::KeyPressedEvent{});
+    on_key_pressed_.publish(deep::events::EventType::KeyPressedEvent, key, scancode, action, mods);
 }
 
 void GlfwWindow::framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width, int32_t height)
 {
     deep::Logger::debug_core(fmt::format("Calling {}", __FUNCTION__));
 
-    event_dispatcher_.publish(deep::events::WindowResizedEvent{});
+    on_window_resized_.publish(deep::events::EventType::WindowResizedEvent, width, height);
 
     glViewport(0, 0, width, height);
 }

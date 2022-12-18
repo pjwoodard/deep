@@ -8,16 +8,11 @@ using namespace deep;
 
 Deep::Deep()
 {
-    event_dispatcher_.subscribe(
+    on_window_resized_.subscribe(
       deep::events::EventType::WindowResizedEvent,
-      [](const deep::events::Event_t& event)
+      [](int32_t width, int32_t height)
       {
-          if (event.get_event_type() == deep::events::EventType::WindowResizedEvent)
-          {
-              deep::Logger::debug_core(fmt::format("Uh oh, here we go"));
-              const auto window_resized_event = static_cast<const deep::events::WindowResizedEvent&>(event);
-
-          }
+          deep::Logger::debug_core(fmt::format("Width: {}, Height: {}", width, height));
       });
 }
 
@@ -37,6 +32,5 @@ void Deep::run()
         {
             layer.on_update();
         }
-        window_.on_update();
     }
 }

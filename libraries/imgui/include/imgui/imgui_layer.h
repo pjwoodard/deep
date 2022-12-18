@@ -2,20 +2,34 @@
 
 #include <imgui.h>
 
-#include "events/event_t.h"
-#include "events/event_dispatcher.h"
+#include "events/signal.h"
+
+struct GLFWwindow;
 
 namespace deep
 {
 class ImGuiLayer {
    public:
+    ImGuiLayer()
+    {
+        on_key_pressed_.subscribe(
+          deep::events::EventType::KeyPressedEvent,
+          [](int32_t keynum, int32_t scancode, int32_t action, int32_t mods)
+          {
+              deep::Logger::debug_core(fmt::format("Key Pressed. Key Number: {}, Scan Code: {}, Action: {}, Mods: {}", keynum, scancode, action, mods));
+          });
+    }
     void on_attach();
     void on_detach(){};
     void on_update();
-    void on_event(const deep::Event_t& event);
 
    private:
-    float time_{0.0};
-    deep::events::EventDispatcher event_dispatcher_;
+    deep::events::Signal<int32_t, int32_t, int32_t, int32_t> on_key_pressed_;
+    deep::events::Signal<int32_t> on_mouse_button_pressed_;
+
+    // Our state
+    bool show_demo_window = true;
+    bool show_another_window = false;
+    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 };
 }

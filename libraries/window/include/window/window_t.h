@@ -2,7 +2,6 @@
 #include <memory>
 #include <string_view>
 
-#include "events/event_t.h"
 #include "logger/logger.h"
 
 namespace deep {

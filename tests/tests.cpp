@@ -2,8 +2,8 @@
 
 #include <catch2/catch.hpp>
 
-#include "events/event_dispatcher.h"
 #include "events/events.h"
+#include "events/signal.h"
 
 class TestEvent
 {
