@@ -1,5 +1,14 @@
 cmake_minimum_required(VERSION 3.20)
 
+# Not ideal to use this global variable, but necessary to make sure
+# that tooling and projects use the same version
+set(CMAKE_CXX_STANDARD 23)
+
+# strongly encouraged to enable this globally to avoid conflicts between
+# -Wpedantic being enabled and -std=c++20 and -std=gnu++20 for example
+# when compiling with PCH enabled
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Set the project name to your project name, my project isn't very descriptive
 project(deep CXX)
 include(cmake/StandardProjectSettings.cmake)

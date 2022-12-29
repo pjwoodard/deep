@@ -17,8 +17,12 @@ class ImGuiLayer {
           [](int32_t keynum, int32_t scancode, int32_t action, int32_t mods)
           {
               deep::Logger::debug_core(fmt::format("Key Pressed. Key Number: {}, Scan Code: {}, Action: {}, Mods: {}", keynum, scancode, action, mods));
+              ImGuiIO& io = ImGui::GetIO();
+
+              io.KeysDown[keynum] = true;
           });
     }
+
     void on_attach();
     void on_detach(){};
     void on_update();

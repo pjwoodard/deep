@@ -1,0 +1,25 @@
+# Docs at https://docs.conan.io/en/latest/reference/conanfile_txt.html
+
+[requires]
+catch2/2.13.7
+docopt.cpp/0.6.2
+fmt/8.0.1
+spdlog/1.9.2
+glfw/3.3.6
+glad/0.1.34
+namedtype/20190324
+stb/cci.20210713
+imgui/cci.20220621+1.88.docking
+
+[generators]
+cmake_find_package_multi
+
+[options]
+glad:shared=False
+glad:no_loader=False
+glad:spec=gl
+glad:gl_profile=core
+glad:gl_version=4.6
+fmt:header_only=True
+spdlog:header_only=True
+tools.system.package_manager:mode=install
