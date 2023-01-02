@@ -14,7 +14,7 @@ env:
   CONAN_SYSREQUIRES_MODE: enabled
   CONAN_USER_HOME: "${{ github.workspace }}/conan-cache"
   CONAN_USER_HOME_SHORT: "${{ github.workspace }}/conan-cache/short"
-  CLANG_TIDY_VERSION: "15.0.6"
+  CLANG_TIDY_VERSION: "13.0.0"
 
 jobs:
   Test:
@@ -31,13 +31,13 @@ jobs:
       # and your own projects needs
       matrix:
         os:
-          - ubuntu-latest
-#          - macos-10.15
-#          - windows-2019
+          - ubuntu-20.04
+          - macos-10.15
+          - windows-2019
         compiler:
           # you can specify the version after `-` like "llvm-13.0.0".
-          - llvm-15.0.6
-#          - gcc-12
+          - llvm-13.0.0
+          - gcc-11
         generator:
           - "Ninja Multi-Config"
         build_type:
@@ -52,52 +52,52 @@ jobs:
           - os: windows-2019
             compiler: gcc-11
 
-#        include:
+        include:
           # Add appropriate variables for gcov version required. This will intentionally break
           # if you try to use a compiler that does not have gcov set
-#          - compiler: gcc-11
-#            gcov_executable: gcov
-#          - compiler: llvm-13.0.0
-#            gcov_executable: "llvm-cov gcov"
+          - compiler: gcc-11
+            gcov_executable: gcov
+          - compiler: llvm-13.0.0
+            gcov_executable: "llvm-cov gcov"
 
           # Set up preferred package generators, for given build configurations
-#          - build_type: Release
-#            developer_mode: OFF
-#            package_generator: TBZ2
-#
+          - build_type: Release
+            developer_mode: OFF
+            package_generator: TBZ2
+
           # This exists solely to make sure a non-multiconfig build works
-#          - os: ubuntu-20.04
-#            compiler: gcc-11
-#            generator: "Unix Makefiles"
-#            build_type: Debug
-#            gcov_executable: gcov
-#            developer_mode: On
+          - os: ubuntu-20.04
+            compiler: gcc-11
+            generator: "Unix Makefiles"
+            build_type: Debug
+            gcov_executable: gcov
+            developer_mode: On
 
           # Windows msvc builds
-#          - os: windows-2022
-#            compiler: msvc
-#            generator: "Visual Studio 17 2022"
-#            build_type: Debug
-#            developer_mode: On
-#
-#          - os: windows-2022
-#            compiler: msvc
-#            generator: "Visual Studio 17 2022"
-#            build_type: Release
-#            developer_mode: On
-#
-#          - os: windows-2022
-#            compiler: msvc
-#            generator: "Visual Studio 17 2022"
-#            build_type: Debug
-#            developer_mode: Off
-#
-#          - os: windows-2022
-#            compiler: msvc
-#            generator: "Visual Studio 17 2022"
-#            build_type: Release
-#            developer_mode: Off
-#            package_generator: ZIP
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Debug
+            developer_mode: On
+
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Release
+            developer_mode: On
+
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Debug
+            developer_mode: Off
+
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Release
+            developer_mode: Off
+            package_generator: ZIP
 
 
     steps:
@@ -123,13 +123,17 @@ jobs:
         with:
           compiler: ${{ matrix.compiler }}
           vcvarsall: ${{ contains(matrix.os, 'windows' )}}
+
           cmake: true
           ninja: true
           conan: true
           vcpkg: false
           ccache: true
           clangtidy: ${{ env.CLANG_TIDY_VERSION }}
+
+
           cppcheck: true
+
           gcovr: true
           opencppcoverage: true
 

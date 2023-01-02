@@ -2,7 +2,10 @@
 build/
 out/
 cmake-build-*/
-*.pyc
+conan-cache/
+
+# User spesific settings
+CMakeUserPresets.json
 
 # IDE files
 .vs/
@@ -14,6 +17,8 @@ cmake-build-*/
 !.vscode/extensions.json
 *.swp
 *~
+_ReSharper*
+*.log
 
 # OS Generated Files
 .DS_Store

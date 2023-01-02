@@ -5,9 +5,6 @@
 #include <string_view>
 
 namespace deep::concepts {
-template<class T>
-concept scoped_enum_type = std::is_scoped_enum_v<T>;
-
 template<typename T>
 concept Numeric = std::floating_point<T> || std::integral<T>;
 
@@ -32,10 +29,4 @@ concept Logger = requires(LoggerType logger, std::string_view str)
     logger.error(str);
     logger.critical(str);
 };
-
-constexpr auto to_integral(const scoped_enum_type auto e) -> decltype(auto)
-{
-    return static_cast<std::underlying_type_t<decltype(e)>>(e);
-}
-
 }
