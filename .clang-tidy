@@ -15,7 +15,7 @@ Checks: "*,
         -misc-non-private-member-variables-in-classes,
 "
 WarningsAsErrors: ''
-HeaderFilterRegex: ''
+HeaderFilterRegex: 'external/*'
 FormatStyle:     none
 
 

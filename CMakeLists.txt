@@ -161,7 +161,7 @@ endif()
 if(MSVC)
   get_all_installable_targets(all_targets)
   message("all_targets=${all_targets}")
-  set_target_properties(${all_targets} PROPERTIES VS_DEBUGGER_ENVIRONMENT "PATH=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.31.31103\\bin\\Hostx64\\x64;%PATH%")
+  set_target_properties(${all_targets} PROPERTIES VS_DEBUGGER_ENVIRONMENT "PATH=%PATH%")
 endif()
 
 # set the startup project for the "play" button in MSVC
