@@ -81,26 +81,26 @@ jobs:
             compiler: msvc
             generator: "Visual Studio 17 2022"
             build_type: Debug
-            developer_mode: On
-#
-#          - os: windows-2022
-#            compiler: msvc
-#            generator: "Visual Studio 17 2022"
-#            build_type: Release
-#            developer_mode: On
-#
-#          - os: windows-2022
-#            compiler: msvc
-#            generator: "Visual Studio 17 2022"
-#            build_type: Debug
-#            developer_mode: Off
-#
-#          - os: windows-2022
-#            compiler: msvc
-#            generator: "Visual Studio 17 2022"
-#            build_type: Release
-#            developer_mode: Off
-#            package_generator: ZIP
+            developer_mode: ON
+
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Release
+            developer_mode: ON
+
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Debug
+            developer_mode: OFF
+
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Release
+            developer_mode: OFF
+            package_generator: ZIP
 
 
     steps:
