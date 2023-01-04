@@ -44,14 +44,13 @@ jobs:
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
         compiler:
           # you can specify the version after `-` like "llvm-13.0.0".
-          - gcc-11
+          - gcc
         generator:
           - "Ninja Multi-Config"
         build_type:
           - Debug
         developer_mode:
           - OFF
-
 
     steps:
     - uses: actions/checkout@v2
@@ -64,6 +63,12 @@ jobs:
         developer_mode: ${{ matrix.developer_mode }}
         generator: ${{ matrix.generator }}
 
+    - name: Install System Packages
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt install libxcb-util-dev libxcb-util0-dev libgl-dev libgl1-mesa-dev  libx11-xcb-dev libfontenc-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxres-dev libxss-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-dri3-dev
+        fi
+      shell: bash
 
     - name: Setup Cpp
       uses: aminya/setup-cpp@v1
