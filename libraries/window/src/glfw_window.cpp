@@ -23,7 +23,7 @@ GlfwWindow::GlfwWindow(std::string_view title, types::Width width, types::Height
   , self_raw_{ glfwCreateWindow(width_, height_, title.data(), nullptr, nullptr) }
 {
     deep::Logger::assert_and_log("GLFW failed to initialize", glfw_initialized_);
-    deep::Logger::assert_and_log("glfwCreateWindow returned null"sv.data(), !self_raw_ == false);
+    deep::Logger::assert_and_log("glfwCreateWindow returned null"sv.data(), static_cast<bool>(self_raw_));
 
     // Set GLFW callbacks
     glfwSetFramebufferSizeCallback(self_raw_.get(), &GlfwWindow::framebuffer_size_callback);

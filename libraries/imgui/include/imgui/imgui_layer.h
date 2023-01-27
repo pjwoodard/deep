@@ -23,7 +23,7 @@ class ImGuiLayer {
           });
     }
 
-    void on_attach();
+    static void on_attach();
     void on_detach(){};
     void on_update();
 

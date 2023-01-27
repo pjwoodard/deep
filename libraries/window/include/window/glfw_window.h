@@ -55,7 +55,7 @@ class GlfwWindow
     static void key_pressed(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void mouse_button_pressed(GLFWwindow* window, int button, int action, int mods);
     static void framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width, int32_t height);
-    void processInput(GLFWwindow* window);
+    static void processInput(GLFWwindow* window);
 
     int32_t width_{};
     int32_t height_{};

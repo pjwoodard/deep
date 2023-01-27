@@ -12,8 +12,8 @@ OpenGLProgram::OpenGLProgram(deep::types::VertexShaderSource vertex_source,
                              std::optional<deep::types::GeometryShaderSource> geometry_source)
   : gl_program_id_{ glCreateProgram() }
 {
-    OpenGLShader vertex_shader{GLShaderType::VertexShader, vertex_source.get()};
-    OpenGLShader fragment_shader{GLShaderType::FragmentShader, fragment_source.get()};
+    const OpenGLShader vertex_shader{GLShaderType::VertexShader, vertex_source.get()};
+    const OpenGLShader fragment_shader{GLShaderType::FragmentShader, fragment_source.get()};
     std::optional<OpenGLShader> geometry_shader;
 
     glAttachShader(gl_program_id_, vertex_shader.id());

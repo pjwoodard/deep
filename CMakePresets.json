@@ -34,7 +34,7 @@
             },
             "cacheVariables": {
                 "ENABLE_CPPCHECK_DEFAULT": "FALSE",
-                "ENABLE_CLANG_TIDY_DEFAULT": "FALSE"
+                "ENABLE_CLANG_TIDY_DEFAULT": "TRUE"
             }
         },
         {

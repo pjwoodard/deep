@@ -19,10 +19,9 @@ void ImGuiLayer::on_attach()
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
+    ImGuiIO& imgui_io = ImGui::GetIO();
+    imgui_io.ConfigFlags |= static_cast<uint32_t>(ImGuiConfigFlags_NavEnableKeyboard); // Enable Keyboard Controls
+    imgui_io.ConfigFlags |= static_cast<uint32_t>(ImGuiConfigFlags_NavEnableGamepad);  // Enable Gamepad Controls
 
     ImGui::StyleColorsDark();
 
