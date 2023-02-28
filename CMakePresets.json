@@ -110,8 +110,9 @@
             "description": "Target Windows with the clang compiler, debug build type",
             "inherits": "conf-windows-common",
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang-cl",
-                "CMAKE_CXX_COMPILER": "clang-cl",
+                "CMAKE_C_COMPILER": "C:/Users/parker/llvm/bin/clang.exe",
+                "CMAKE_CXX_COMPILER": "C:/Users/parker/llvm/bin/clang++.exe",
+                "CMAKE_RC_COMPILER": "C:/Users/parker/llvm/bin/llvm-rc.exe",
                 "CMAKE_BUILD_TYPE": "Debug"
             },
             "vendor": {

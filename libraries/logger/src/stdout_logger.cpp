@@ -1,4 +1,4 @@
-#include <format>
+#include <format> // NOLINT(clang-diagnostic-error)
 #include <iostream>
 
 #include "logger/stdout_logger.h"

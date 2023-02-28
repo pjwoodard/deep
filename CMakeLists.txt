@@ -118,6 +118,8 @@ dynamic_project_options(
   --suppress=unmatchedSuppression
   --suppress=passedByValue
   --suppress=syntaxError
+  # Suppress specific third party files
+  --suppress=*:${CMAKE_SOURCE_DIR}/external/imgui_impl_glfw/*
   --inconclusive
 )
 
