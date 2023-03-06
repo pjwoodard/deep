@@ -1,11 +1,11 @@
-#include <format> // NOLINT(clang-diagnostic-error)
 #include <iostream>
 
+#include <spdlog/spdlog.h>
 #include "logger/stdout_logger.h"
 
  void StdoutLogger::debug(std::string_view message)
 {
-    std::cout << std::format("DEBUG: {}", message) << '\n';
+    std::cout << fmt::format("DEBUG: {}", message) << '\n';
 }
 
 void StdoutLogger::info(std::string_view message)

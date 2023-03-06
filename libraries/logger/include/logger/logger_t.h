@@ -10,7 +10,7 @@
 struct Logger_t
 {
     template<deep::concepts::Logger T>
-    Logger_t(T t) noexcept
+    explicit Logger_t(T t) noexcept
       : self{ std::make_unique<Implementation_t<T>>(std::move(t)) }
     {
     }

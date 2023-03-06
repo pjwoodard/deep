@@ -59,7 +59,9 @@ void GlfwWindow::set_as_current_context() const
     }
 }
 
-void GlfwWindow::mouse_button_pressed(GLFWwindow* window, int /*button*/, int /*action*/, int /*mods*/)
+// Suppress this warning as we are conforming to a callback interface here despite window not changing
+// cppcheck-suppress constParameter
+void GlfwWindow::mouse_button_pressed(GLFWwindow *window, int /*button*/, int /*action*/, int /*mods*/)
 {
     if (window == nullptr)
     {

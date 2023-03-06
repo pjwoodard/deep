@@ -8,7 +8,7 @@ int main()
 {
     deep::Logger::info_core("Starting Deep by creating application");
     deep::Deep app;
-    app.push_layer(deep::ImGuiLayer{});
+    app.emplace_layer(deep::Layer_t{deep::ImGuiLayer{}});
     app.run();
 
     return 0;

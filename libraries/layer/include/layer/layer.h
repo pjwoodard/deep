@@ -7,9 +7,10 @@ namespace deep {
 class Layer
 {
   public:
-    void on_attach() {}
-    void on_detach() {}
-    void on_update() {}
+    // TODO: unmake static when they are no longer static
+    static void on_attach() {}
+    static void on_detach() {}
+    static void on_update() {}
 };
 
 } // deep

@@ -10,7 +10,7 @@ class Matrix
     constexpr explicit Matrix(const std::array<Data, Rows * Columns> &data) noexcept
     : data_(data) {};
 
-    constexpr auto size() const {
+    static constexpr auto size() {
         return Rows * Columns;
     };
 

@@ -8,7 +8,7 @@ namespace deep {
 struct Window_t
 {
     template<typename T>
-    Window_t(T t) noexcept
+    explicit Window_t(T t) noexcept
       : self_{ std::make_unique<Implementation_t<T>>(std::move(t)) }
     {
     }

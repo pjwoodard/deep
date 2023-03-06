@@ -104,6 +104,7 @@ dynamic_project_options(
   <vector>
   <string> # This is a list of headers to pre-compile, here are some common ones
   ENABLE_CONAN
+        CONAN_PROFILE ${profile_path}
   # CONAN_OPTIONS    # Extra options to pass to conan
   # MSVC_WARNINGS    # Override the defaults for the MSVC warnings
   # CLANG_WARNINGS   # Override the defaults for the CLANG warnings
@@ -120,6 +121,7 @@ dynamic_project_options(
   --suppress=syntaxError
   # Suppress specific third party files
   --suppress=*:${CMAKE_SOURCE_DIR}/external/imgui_impl_glfw/*
+  --suppress=*:${CMAKE_SOURCE_DIR}/external/imgui_impl_opengl3/*
   --inconclusive
 )
 

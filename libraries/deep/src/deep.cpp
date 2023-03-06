@@ -16,17 +16,15 @@ Deep::Deep()
       });
 }
 
-void Deep::push_layer(deep::Layer_t layer)
+void Deep::emplace_layer(deep::Layer_t&& layer)
 {
     layer.on_attach();
-    layers_.push_back(std::move(layer));
+    layers_.emplace_back(std::move(layer));
 };
 
 void Deep::run()
 {
-    running_ = true;
-
-    while(running_)
+    while(true)
     {
         for(auto& layer : layers_)
         {

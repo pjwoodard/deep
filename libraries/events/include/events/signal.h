@@ -18,7 +18,7 @@ class Signal
   public:
     using EventCallback = std::function<void(Args...)>;
 
-    void publish(const deep::events::EventType &event_type, Args... args)
+    static void publish(const deep::events::EventType &event_type, Args... args)
     {
         if(event_map_.contains(event_type))
         {
@@ -34,7 +34,7 @@ class Signal
         }
     }
 
-    void subscribe(const deep::events::EventType &event_type, EventCallback func)
+    static void subscribe(const deep::events::EventType &event_type, EventCallback func)
     {
         // If we have the thing in the map already, add the function to the vector
         if (event_map_.contains(event_type))

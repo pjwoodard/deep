@@ -11,7 +11,8 @@ namespace deep {
 
 struct Layer_t {
     template <typename T>
-    Layer_t(T t) noexcept : self{std::make_unique<Implementation_t<T>>(std::move(t))} {}
+    explicit Layer_t(T&& t) noexcept
+      : self{std::make_unique<Implementation_t<T>>(std::forward<T>(t))} {} // cppcheck-suppress noExplicitConstructor
 
     ~Layer_t() = default;
     Layer_t(const Layer_t& other) = delete;
@@ -41,14 +42,14 @@ struct Layer_t {
 
     template <typename T>
     struct Implementation_t : Interface_t {
-        explicit Implementation_t(T s) noexcept : self{std::move(s)} {}
+        explicit Implementation_t(T s) noexcept : self_(std::move(s)) {}
 
-        void on_attach() override { self.on_attach(); }
-        void on_detach() override { self.on_detach(); }
-        void on_update() override { self.on_update(); }
+        void on_attach() override { self_.on_attach(); }
+        void on_detach() override { self_.on_detach(); }
+        void on_update() override { self_.on_update(); }
 
        private:
-        T self;
+        T self_;
     };
 
     std::unique_ptr<Interface_t> self;

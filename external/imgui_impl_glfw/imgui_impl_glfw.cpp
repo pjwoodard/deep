@@ -2,11 +2,16 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 
+// NOLINTBEGIN(*)
 // Clang warnings with -Weverything
 #if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wold-style-cast"     // warning: use of old-style cast
-#pragma clang diagnostic ignored "-Wsign-conversion"    // warning: implicit conversion changes signedness
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wold-style-cast"     // warning: use of old-style cast
+    #pragma clang diagnostic ignored "-Wsign-conversion"    // warning: implicit conversion changes signedness
+#elif defined(__GNUC__) || defined(__GNUG__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wold-style-cast"
+    #pragma GCC diagnostic ignored "-Wuseless-cast"    // warning: implicit conversion changes signedness
 #endif
 
 // GLFW
@@ -625,6 +630,8 @@ void ImGui_ImplGlfw_NewFrame()
 }
 
 #if defined(__clang__)
-#pragma clang diagnostic pop
+    #pragma clang diagnostic pop
+#elif defined(__GNUC__) || defined(__GNUG__)
+    #pragma GCC diagnostic pop
 #endif
 // NOLINTEND(*)
