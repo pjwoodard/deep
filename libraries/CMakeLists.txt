@@ -1,7 +1,7 @@
 add_subdirectory(shader)
 add_subdirectory(texture)
 add_subdirectory(types)
-add_subdirectory(math)
+add_subdirectory(core)
 add_subdirectory(context)
 add_subdirectory(window)
 add_subdirectory(deep)
