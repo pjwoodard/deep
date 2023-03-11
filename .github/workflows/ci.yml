@@ -34,7 +34,6 @@ jobs:
           - macos-latest
           - windows-latest
         compiler:
-          # you can specify the version after `-` like "llvm-13.0.0".
           - llvm
           - gcc
         generator:
@@ -59,13 +58,9 @@ jobs:
           # if you try to use a compiler that does not have gcov set
           - compiler: gcc
             gcov_executable: gcov
+
           - compiler: llvm
             gcov_executable: "llvm-cov gcov"
-
-#           Set up preferred package generators, for given build configurations
-          - build_type: Release
-            developer_mode: OFF
-            package_generator: TBZ2
 
           # Windows msvc builds
           - os: windows-2022

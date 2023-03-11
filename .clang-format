@@ -17,24 +17,9 @@ AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: false
 BinPackArguments: false
 BinPackParameters: false
-BraceWrapping:
-  AfterClass: true
-  AfterControlStatement: false
-  AfterEnum: false
-  AfterFunction: true
-  AfterNamespace: false
-  AfterObjCDeclaration: false
-  AfterStruct: true
-  AfterUnion: false
-  BeforeCatch: false
-  BeforeElse: false
-  IndentBraces: false
-  SplitEmptyFunction: false
-  SplitEmptyNamespace: true
-  SplitEmptyRecord: true
 BreakAfterJavaFieldAnnotations: true
 BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeBraces: Custom
+BreakBeforeBraces: Allman
 BreakBeforeInheritanceComma: true
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeColon

@@ -60,6 +60,7 @@ struct ImGui_ImplGlfw_Data
     GLFWcharfun             PrevUserCallbackChar;
     GLFWmonitorfun          PrevUserCallbackMonitor;
 
+    // cppcheck-suppress [memsetClassFloat, cstyleCast]
     ImGui_ImplGlfw_Data()   { memset((void*)this, 0, sizeof(*this)); }
 };
 
@@ -72,17 +73,20 @@ struct ImGui_ImplGlfw_Data
 // FIXME: some shared resources (mouse cursor shape, gamepad) are mishandled when using multi-context.
 static ImGui_ImplGlfw_Data* ImGui_ImplGlfw_GetBackendData()
 {
+    // cppcheck-suppress cstyleCast
     return ImGui::GetCurrentContext() ? (ImGui_ImplGlfw_Data*)ImGui::GetIO().BackendPlatformUserData : nullptr;
 }
 
 // Functions
 static const char* ImGui_ImplGlfw_GetClipboardText(void* user_data)
 {
+    // cppcheck-suppress cstyleCast
     return glfwGetClipboardString((GLFWwindow*)user_data);
 }
 
 static void ImGui_ImplGlfw_SetClipboardText(void* user_data, const char* text)
 {
+    // cppcheck-suppress cstyleCast
     glfwSetClipboardString((GLFWwindow*)user_data, text);
 }
 
@@ -277,6 +281,7 @@ static int ImGui_ImplGlfw_TranslateUntranslatedKey(int key, int scancode)
     return key;
 }
 
+// cppcheck-suppress funcArgNamesDifferent
 void ImGui_ImplGlfw_KeyCallback(GLFWwindow* window, int keycode, int scancode, int action, int mods)
 {
     ImGui_ImplGlfw_Data* bd = ImGui_ImplGlfw_GetBackendData();
@@ -338,6 +343,7 @@ void ImGui_ImplGlfw_CursorEnterCallback(GLFWwindow* window, int entered)
         bd->MouseWindow = window;
         io.AddMousePosEvent(bd->LastValidMousePos.x, bd->LastValidMousePos.y);
     }
+    // cppcheck-suppress knownConditionTrueFalse
     else if (!entered && bd->MouseWindow == window)
     {
         bd->LastValidMousePos = io.MousePos;
@@ -411,6 +417,7 @@ static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, Glfw
 
     // Setup backend capabilities flags
     ImGui_ImplGlfw_Data* bd = IM_NEW(ImGui_ImplGlfw_Data)();
+    // cppcheck-suppress cstyleCast
     io.BackendPlatformUserData = (void*)bd;
     io.BackendPlatformName = "imgui_impl_glfw";
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)

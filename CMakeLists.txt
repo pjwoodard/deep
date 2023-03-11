@@ -23,13 +23,9 @@ set(OPT_WARNINGS_AS_ERRORS_DEVELOPER_DEFAULT TRUE)
 # Add project_options v0.20.0
 # https://github.com/cpp-best-practices/project_options
 include(FetchContent)
-FetchContent_Declare(_project_options URL https://github.com/aminya/project_options/archive/refs/tags/v0.20.0.zip)
+FetchContent_Declare(_project_options URL https://github.com/aminya/project_options/archive/refs/tags/v0.25.2.zip)
 FetchContent_MakeAvailable(_project_options)
 include(${_project_options_SOURCE_DIR}/Index.cmake)
-
-# uncomment to enable vcpkg:
-# # Setup vcpkg - should be called before defining project()
-# run_vcpkg()
 
 # Set the project name and language
 project(
@@ -83,20 +79,6 @@ if(BUILDING_MULTI_CONFIG)
 endif()
 
 include(${_project_options_SOURCE_DIR}/src/DynamicProjectOptions.cmake)
-
-# defaulted_project_options sets recommended defaults and provides user and developer
-# modes and full GUI support for choosing options at configure time
-
-# for more flexibility, look into project_options() macro
-
-# Any default can be overridden
-# set(<feature_name>_DEFAULT <value>) - set default for both user and developer modes
-# set(<feature_name>_DEVELOPER_DEFAULT <value>) - set default for developer mode
-# set(<feature_name>_USER_DEFAULT <value>) - set default for user mode
-
-# Initialize project_options variable related to this project
-# This overwrites `project_options` and sets `project_warnings`
-# uncomment the options to enable them:
 dynamic_project_options(
   # Note: PCH is disabled by default in developer mode because these headers become
   # globally included and they can mask other errors
@@ -127,7 +109,7 @@ dynamic_project_options(
 
 target_compile_features(project_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD})
 # TODO: The INTERFACE library NAMESPACE ALIAS are missing! CK
-add_library(myproject::project_options INTERFACE IMPORTED libraries/core/math/include/math/math.cpp)
+add_library(myproject::project_options INTERFACE IMPORTED)
 add_library(myproject::project_warnings INTERFACE IMPORTED)
 
 # Packages are project-wide

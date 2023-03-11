@@ -10,7 +10,6 @@
 // private includes
 #include "context/glfw_context.h"
 #include "logger/logger.h"
-#include "math/matrix.h"
 
 using namespace std::literals;
 using namespace deep;

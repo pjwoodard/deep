@@ -33,7 +33,7 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "ENABLE_CPPCHECK_DEFAULT": "FALSE",
+                "ENABLE_CPPCHECK_DEFAULT": "TRUE",
                 "ENABLE_CLANG_TIDY_DEFAULT": "TRUE"
             }
         },

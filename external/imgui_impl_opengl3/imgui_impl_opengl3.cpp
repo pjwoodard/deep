@@ -124,13 +124,14 @@ struct ImGui_ImplOpenGL3_Data
     bool            HasClipOrigin;
     bool            UseBufferSubData;
 
-    ImGui_ImplOpenGL3_Data() { memset((void*)this, 0, sizeof(*this)); }
+    ImGui_ImplOpenGL3_Data() { memset(static_cast<void*>(this), 0, sizeof(*this)); }
 };
 
 // Backend data stored in io.BackendRendererUserData to allow support for multiple Dear ImGui contexts
 // It is STRONGLY preferred that you use docking branch with multi-viewports (== single Dear ImGui context + multiple windows) instead of multiple Dear ImGui contexts.
 static ImGui_ImplOpenGL3_Data* ImGui_ImplOpenGL3_GetBackendData()
 {
+    // cppcheck-suppress cstyleCast
     return ImGui::GetCurrentContext() ? (ImGui_ImplOpenGL3_Data*)ImGui::GetIO().BackendRendererUserData : NULL;
 }
 
@@ -175,7 +176,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 
     // Setup backend capabilities flags
     ImGui_ImplOpenGL3_Data* bd = IM_NEW(ImGui_ImplOpenGL3_Data)();
-    io.BackendRendererUserData = (void*)bd;
+    io.BackendRendererUserData = static_cast<void*>(bd);
     io.BackendRendererName = "imgui_impl_opengl3";
 
     // Query for GL version (e.g. 320 for GL 3.2)
@@ -187,6 +188,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     if (major == 0 && minor == 0)
     {
         // Query GL_VERSION in desktop GL 2.x, the string will start with "<major>.<minor>"
+        // cppcheck-suppress cstyleCast
         const char* gl_version = (const char*)glGetString(GL_VERSION);
         sscanf(gl_version, "%d.%d", &major, &minor);
     }
@@ -238,6 +240,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     glGetIntegerv(GL_NUM_EXTENSIONS, &num_extensions);
     for (GLint i = 0; i < num_extensions; i++)
     {
+        // cppcheck-suppress cstyleCast
         const char* extension = (const char*)glGetStringi(GL_EXTENSIONS, i);
         if (extension != NULL && strcmp(extension, "GL_ARB_clip_control") == 0)
             bd->HasClipOrigin = true;
@@ -336,8 +339,11 @@ static void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_wid
     glEnableVertexAttribArray(bd->AttribLocationVtxPos);
     glEnableVertexAttribArray(bd->AttribLocationVtxUV);
     glEnableVertexAttribArray(bd->AttribLocationVtxColor);
+    // cppcheck-suppress cstyleCast
     glVertexAttribPointer(bd->AttribLocationVtxPos,   2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), (GLvoid*)IM_OFFSETOF(ImDrawVert, pos));
+    // cppcheck-suppress cstyleCast
     glVertexAttribPointer(bd->AttribLocationVtxUV,    2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), (GLvoid*)IM_OFFSETOF(ImDrawVert, uv));
+    // cppcheck-suppress cstyleCast
     glVertexAttribPointer(bd->AttribLocationVtxColor, 4, GL_UNSIGNED_BYTE, GL_TRUE,  sizeof(ImDrawVert), (GLvoid*)IM_OFFSETOF(ImDrawVert, col));
 }
 
@@ -429,12 +435,16 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
                 bd->IndexBufferSize = idx_buffer_size;
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, bd->IndexBufferSize, NULL, GL_STREAM_DRAW);
             }
+            // cppcheck-suppress cstyleCast
             glBufferSubData(GL_ARRAY_BUFFER, 0, vtx_buffer_size, (const GLvoid*)cmd_list->VtxBuffer.Data);
+            // cppcheck-suppress cstyleCast
             glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, idx_buffer_size, (const GLvoid*)cmd_list->IdxBuffer.Data);
         }
         else
         {
+            // cppcheck-suppress cstyleCast
             glBufferData(GL_ARRAY_BUFFER, vtx_buffer_size, (const GLvoid*)cmd_list->VtxBuffer.Data, GL_STREAM_DRAW);
+            // cppcheck-suppress cstyleCast
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, idx_buffer_size, (const GLvoid*)cmd_list->IdxBuffer.Data, GL_STREAM_DRAW);
         }
 
@@ -468,7 +478,8 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
                     glDrawElementsBaseVertex(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)), (GLint)pcmd->VtxOffset);
                 else
 #endif
-                glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)));
+                    // cppcheck-suppress cstyleCast
+                    glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)));
             }
         }
     }
@@ -572,6 +583,7 @@ static bool CheckShader(GLuint handle, const char* desc)
     {
         ImVector<char> buf;
         buf.resize((int)(log_length + 1));
+        // cppcheck-suppress cstyleCast
         glGetShaderInfoLog(handle, log_length, NULL, (GLchar*)buf.begin());
         fprintf(stderr, "%s\n", buf.begin());
     }
@@ -591,6 +603,7 @@ static bool CheckProgram(GLuint handle, const char* desc)
     {
         ImVector<char> buf;
         buf.resize((int)(log_length + 1));
+        // cppcheck-suppress cstyleCast
         glGetProgramInfoLog(handle, log_length, NULL, (GLchar*)buf.begin());
         fprintf(stderr, "%s\n", buf.begin());
     }

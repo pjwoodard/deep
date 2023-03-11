@@ -1,5 +1,4 @@
 #include <array>
-#include <cassert>
 #include <string_view>
 
 #include <fmt/format.h>
@@ -31,8 +30,8 @@ OpenGLProgram::OpenGLProgram(deep::types::VertexShaderSource vertex_source,
     int success{ 0 };
     glGetProgramiv(gl_program_id_, GL_LINK_STATUS, &success);
     constexpr int32_t info_log_buff_size{ 512 };
-    std::array<GLchar, info_log_buff_size> info_log{};
     if (success == 0) {
+        std::array<GLchar, info_log_buff_size> info_log{};
         glGetProgramInfoLog(gl_program_id_, info_log_buff_size, nullptr, info_log.data());
         puts(fmt::format("ERROR::SHADER::PROGRAM::LINKING_FAILED\n{}\n", info_log.data()).c_str());
     }
