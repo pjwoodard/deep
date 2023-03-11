@@ -57,15 +57,15 @@ jobs:
         include:
           # Add appropriate variables for gcov version required. This will intentionally break
           # if you try to use a compiler that does not have gcov set
-#          - compiler: gcc-11
-#            gcov_executable: gcov
-#          - compiler: llvm-15.0.6
-#            gcov_executable: "llvm-cov gcov"
+          - compiler: gcc
+            gcov_executable: gcov
+          - compiler: llvm
+            gcov_executable: "llvm-cov gcov"
 
-          # Set up preferred package generators, for given build configurations
-#          - build_type: Release
-#            developer_mode: OFF
-#            package_generator: TBZ2
+#           Set up preferred package generators, for given build configurations
+          - build_type: Release
+            developer_mode: OFF
+            package_generator: TBZ2
 
           # Windows msvc builds
           - os: windows-2022
