@@ -22,7 +22,7 @@ class OpenGLProgram
 
     ~OpenGLProgram() noexcept { glDeleteProgram(gl_program_id_); }
 
-    [[nodiscard]] constexpr auto id() const noexcept { return gl_program_id_; };
+    [[nodiscard]] constexpr auto id() const noexcept { return gl_program_id_; }
 
     void set_uniform(const std::string_view name, const deep::concepts::OpenGLUniform auto uniform)
     {

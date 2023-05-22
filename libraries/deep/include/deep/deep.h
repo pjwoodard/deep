@@ -14,7 +14,7 @@ class Deep {
    public:
     explicit Deep();
 
-    [[nodiscard]] static auto& GetWindow() { return window_; };
+    [[nodiscard]] static auto& GetWindow() { return window_; }
 
     void emplace_layer(Layer_t &&layer);
     void run();

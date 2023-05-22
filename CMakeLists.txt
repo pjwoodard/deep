@@ -9,6 +9,9 @@ set(CMAKE_CXX_STANDARD 20)
 # when compiling with PCH enabled
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# We always want to generate compile commands
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
 # Note: by default ENABLE_DEVELOPER_MODE is True
 # This means that all analysis (sanitizers, static analysis)
 # is enabled and all warnings are treated as errors

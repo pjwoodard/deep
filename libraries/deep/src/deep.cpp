@@ -20,7 +20,7 @@ void Deep::emplace_layer(deep::Layer_t&& layer)
 {
     layer.on_attach();
     layers_.emplace_back(std::move(layer));
-};
+}
 
 void Deep::run()
 {

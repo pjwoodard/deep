@@ -27,7 +27,7 @@ class GlfwWindow
         glfwGetWindowSize(self_raw_.get(), &w, &h);
 
         return w;
-    };
+    }
 
     [[nodiscard]] int32_t height() const noexcept
     {
@@ -36,10 +36,10 @@ class GlfwWindow
         glfwGetWindowSize(self_raw_.get(), &w, &h);
 
         return h;
-    };
+    }
 
     static void set_vsync(bool enable);
-    [[nodiscard]] bool is_vsync() const noexcept { return is_vsync_; };
+    [[nodiscard]] bool is_vsync() const noexcept { return is_vsync_; }
     void set_as_current_context() const;
     void on_update();
 

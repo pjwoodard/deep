@@ -1,18 +1,16 @@
-add_library(math INTERFACE)
+add_library(math src/vector.cpp)
 add_library(deep::math ALIAS math)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     if (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
-        # using clang with clang-cl front end
+        set(COMPILE_OPTIONS /Oi /fp:fast /Gv)
     elseif (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "GNU")
-        # using clang with regular front end
+        set(COMPILE_OPTIONS -march=native -msse2)
     endif()
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(COMPILE_OPTIONS --march=native)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
-    # using Intel C++
+    set(COMPILE_OPTIONS -march=native -msse2)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    # using Visual Studio C++
+    set(COMPILE_OPTIONS /Oi /fp:fast /Gv)
 endif()
 
 target_compile_options(math
@@ -21,17 +19,12 @@ target_compile_options(math
 )
 
 target_include_directories(math
-    INTERFACE
+    PUBLIC
         include
 )
 
-target_sources(math
-    INTERFACE
-        include/math/vector.h
-)
-
 target_link_libraries(math
-    INTERFACE
+    PUBLIC
         deep::types
         project_warnings
 )

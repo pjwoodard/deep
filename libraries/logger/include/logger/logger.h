@@ -35,4 +35,4 @@ class Logger
     // We default to spdlog for our logger
     inline static Logger_t logger_{ SpdLogger("Core Logger") };
 };
-}; // namespace deep
+} // namespace deep

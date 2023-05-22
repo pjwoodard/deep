@@ -6,5 +6,5 @@
 
 struct Vector
 {
-    static auto X() {return 0.0;}
+    static auto X() {return 0.0F;}
 };
