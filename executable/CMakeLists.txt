@@ -22,3 +22,10 @@ target_link_libraries(
             deep::events
             deep::imgui
             deep::layer)
+
+if(WIN32)
+    target_compile_definitions(
+        deep_exe 
+        PUBLIC 
+            _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS)
+endif()

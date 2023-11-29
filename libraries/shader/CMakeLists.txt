@@ -18,3 +18,8 @@ target_link_libraries(shader
             deep::types
             project_warnings
         )
+
+target_compile_definitions(
+    shader
+    PUBLIC 
+        _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS=1)

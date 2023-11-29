@@ -20,3 +20,10 @@ target_link_libraries(
             project_options
             fmt::fmt
 )
+
+if(WIN32)
+    target_compile_definitions(
+        layer 
+        PUBLIC 
+            _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS)
+endif()

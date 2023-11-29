@@ -25,21 +25,23 @@ add_library(catch_main OBJECT catch_main.cpp)
 target_link_libraries(catch_main PUBLIC Catch2::Catch2)
 target_link_libraries(catch_main PRIVATE myproject::project_options)
 target_compile_definitions(catch_main
-        PRIVATE
-        _DISABLE_VECTOR_ANNOTATION)
+       PRIVATE 
+        _DISABLE_VECTOR_ANNOTATION=1
+        _DISABLE_STRING_ANNOTATION=1)
 
 add_executable(tests tests.cpp)
 target_link_libraries(tests
     PRIVATE
-        myproject::project_warnings
-        myproject::project_options
+        # myproject::project_warnings
+        # myproject::project_options
         catch_main
         deep::math
 )
 
 target_compile_definitions(tests
-        PRIVATE
-          _DISABLE_VECTOR_ANNOTATION)
+        PRIVATE 
+          _DISABLE_VECTOR_ANNOTATION=1
+          _DISABLE_STRING_ANNOTATION=1)
 
 # automatically discover tests that are defined in catch based test files you can modify the unittests. Set TEST_PREFIX
 # to whatever you want, or use different for different binaries

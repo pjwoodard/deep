@@ -17,3 +17,10 @@ target_link_libraries(logger
         project_warnings
 )
 
+
+if(WIN32)
+    target_compile_definitions(
+        logger 
+        PUBLIC 
+            _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS)
+endif()
