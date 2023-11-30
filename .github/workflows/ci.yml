@@ -129,10 +129,6 @@ jobs:
           gcovr: true
           opencppcoverage: true
 
-      - name: Cleanup Conan system packages (they are not properly cached)
-        run: |
-          conan remove -f '*/system'
-
       - name: Run Conan
         run: |
           conan install . --output-folder=./build --build=missing -c tools.system.package_manager:mode=install
