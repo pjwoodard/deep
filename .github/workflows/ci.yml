@@ -133,16 +133,20 @@ jobs:
         run: |
           conan remove -f '*/system'
 
+      - name: Run Conan
+        run: |
+          conan install . --output-folder=./build --build=missing
+
         # make sure coverage is only enabled for Debug builds, since it sets -O0 to make sure coverage
         # has meaningful results
       - name: Configure CMake
         run: |
-          cmake -S . -B ./build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} -DENABLE_DEVELOPER_MODE:BOOL=${{matrix.developer_mode}} -DOPT_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }} -DGIT_SHA:STRING=${{ github.sha }}
+          cmake -S. -B ./build -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
 
       - name: Build
         # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: |
-          cmake --build ./build --config ${{matrix.build_type}}
+          cmake --build ./build --preset conan-release
 
       - name: Unix - Test and coverage
         if: runner.os != 'Windows'
