@@ -17,9 +17,7 @@ endif()
 
 # ---- Dependencies ----
 
-find_package(Catch2 CONFIG REQUIRED)
-
-include(Catch)
+find_package(Catch2 3 REQUIRED)
 
 add_executable(tests tests.cpp)
 target_link_libraries(tests
@@ -34,17 +32,3 @@ target_compile_definitions(tests
         PRIVATE 
           _DISABLE_VECTOR_ANNOTATION=1
           _DISABLE_STRING_ANNOTATION=1)
-
-# automatically discover tests that are defined in catch based test files you can modify the unittests. Set TEST_PREFIX
-# to whatever you want, or use different for different binaries
-catch_discover_tests(tests
-  TEST_PREFIX
-    "unittests."
-  REPORTER
-    xml
-  OUTPUT_DIR
-    .
-  OUTPUT_PREFIX
-    "unittests."
-  OUTPUT_SUFFIX
-    .xml)
