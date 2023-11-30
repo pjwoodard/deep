@@ -8,7 +8,7 @@ target_link_libraries(
   fuzz_tester
   PRIVATE project_options
           project_warnings
-          fmt::fmt
+          fmt::fmt-header-only
           -coverage
           -fsanitize=fuzzer,undefined,address)
 target_compile_options(fuzz_tester PRIVATE -fsanitize=fuzzer,undefined,address)

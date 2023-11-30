@@ -7,7 +7,7 @@ target_include_directories(texture
 
 target_link_libraries(texture
         PRIVATE
-            glfw::glfw
+            glfw
             glad::glad
             stb::stb
             project_warnings

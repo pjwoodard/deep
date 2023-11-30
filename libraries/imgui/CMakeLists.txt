@@ -12,7 +12,7 @@ target_link_libraries(
             deep::deep
             deep::events
             imgui::imgui
-            glfw::glfw
+            glfw
             external::imgui_impl_opengl3
             external::imgui_impl_glfw
         PRIVATE

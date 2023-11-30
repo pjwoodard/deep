@@ -9,9 +9,9 @@ target_link_libraries(
             project_options
             project_warnings
         PRIVATE
-            docopt::docopt
-            fmt::fmt
-            spdlog::spdlog
+            docopt_s
+            fmt::fmt-header-only
+            spdlog::spdlog_header_only
             stb::stb
             deep::logger
             deep::math

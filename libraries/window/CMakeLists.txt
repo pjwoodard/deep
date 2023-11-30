@@ -8,7 +8,7 @@ target_include_directories(window
 target_link_libraries(window
         PUBLIC
             project_warnings
-            glfw::glfw
+            glfw
             glad::glad
             deep::context
             deep::math

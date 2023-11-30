@@ -12,6 +12,6 @@ target_link_libraries(
             project_options
             project_warnings
             imgui::imgui
-            glfw::glfw
+            glfw
 )
 

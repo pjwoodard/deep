@@ -18,7 +18,7 @@ target_link_libraries(
         PRIVATE
             project_warnings
             project_options
-            fmt::fmt
+            fmt::fmt-header-only
 )
 
 if(WIN32)

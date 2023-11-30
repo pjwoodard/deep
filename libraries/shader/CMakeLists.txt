@@ -12,9 +12,9 @@ target_include_directories(shader
 
 target_link_libraries(shader
         PRIVATE
-            glfw::glfw
+            glfw
             glad::glad
-            fmt::fmt
+            fmt::fmt-header-only
             deep::types
             project_warnings
         )
