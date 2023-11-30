@@ -135,7 +135,7 @@ jobs:
 
       - name: Run Conan
         run: |
-          conan install . --output-folder=./build --build=missing -c tools.system.package_manager:mode=install
+          conan install . --output-folder=./build --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
 
         # make sure coverage is only enabled for Debug builds, since it sets -O0 to make sure coverage
         # has meaningful results
