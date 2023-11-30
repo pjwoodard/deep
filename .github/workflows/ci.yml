@@ -129,6 +129,10 @@ jobs:
           gcovr: true
           opencppcoverage: true
 
+      - name: Detect Conan Profile
+        run: |
+          conan profile detect --force
+
       - name: Run Conan
         run: |
           conan install . --output-folder=./build --build=missing -c tools.system.package_manager:mode=install
