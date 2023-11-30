@@ -10,10 +10,14 @@ stb/cci.20210713
 imgui/cci.20220621+1.88.docking
 
 [options]
-glad:shared=False
-glad:no_loader=False
-glad:spec=gl
-glad:gl_profile=core
-glad:gl_version=4.6
-fmt:header_only=True
-spdlog:header_only=True
+glad/0.1.34:shared=False
+glad/0.1.34:no_loader=False
+glad/0.1.34:spec=gl
+glad/0.1.34:gl_profile=core
+glad/0.1.34:gl_version=4.6
+fmt/8.0.1:header_only=True
+spdlog/1.9.2:header_only=True
+
+[generators]
+CMakeDeps
+CMakeToolchain
