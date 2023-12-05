@@ -12,6 +12,8 @@ target_sources(types
 
 target_link_libraries(types
         INTERFACE
+            myproject_warnings
+            myproject_options
             namedtype::namedtype)
 
 target_compile_features(types INTERFACE cxx_std_20)

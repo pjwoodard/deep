@@ -13,6 +13,8 @@ target_include_directories(
 target_link_libraries(
         layer
         PUBLIC
+            myproject_warnings
+            myproject_options
             deep::events
             deep::logger
         PRIVATE

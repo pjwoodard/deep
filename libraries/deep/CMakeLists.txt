@@ -7,6 +7,8 @@ target_include_directories(deep
 
 target_link_libraries(deep
         PUBLIC
+            myproject_warnings
+            myproject_options
             deep::window
             deep::types
             deep::events

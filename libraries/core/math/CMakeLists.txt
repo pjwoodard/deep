@@ -25,5 +25,7 @@ target_include_directories(math
 
 target_link_libraries(math
     PUBLIC
+        myproject_warnings
+        myproject_options
         deep::types
 )

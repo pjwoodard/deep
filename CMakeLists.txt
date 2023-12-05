@@ -22,6 +22,16 @@ project(
   HOMEPAGE_URL "%%myurl%%"
   LANGUAGES CXX C)
 
+include(project_options.cmake)
+
+myproject_setup_options()
+myproject_local_options()
+
+target_compile_features(myproject_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD})
+
+add_library(myproject::myproject_options ALIAS myproject_options)
+add_library(myproject::myproject_warnings ALIAS myproject_warnings)
+
 # Packages are project-wide
 find_package(fmt)
 find_package(spdlog)

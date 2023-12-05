@@ -7,4 +7,6 @@ target_sources(context INTERFACE
 
 target_link_libraries(context
         INTERFACE
+            myproject_warnings
+            myproject_options
             glfw)

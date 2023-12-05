@@ -9,6 +9,8 @@ target_include_directories(
 target_link_libraries(
         imgui
         PUBLIC
+            myproject_warnings
+            myproject_options
             deep::deep
             deep::events
             imgui::imgui

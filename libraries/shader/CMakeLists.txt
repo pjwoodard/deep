@@ -11,6 +11,9 @@ target_include_directories(shader
             private/)
 
 target_link_libraries(shader
+        PUBLIC 
+            myproject_warnings
+            myproject_options
         PRIVATE
             glfw
             glad::glad

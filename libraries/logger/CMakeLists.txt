@@ -11,6 +11,8 @@ target_include_directories(logger
 
 target_link_libraries(logger 
     PUBLIC
+        myproject_warnings
+        myproject_options
         spdlog::spdlog_header_only
         deep::types
 )
