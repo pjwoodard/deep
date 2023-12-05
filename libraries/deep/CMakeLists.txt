@@ -13,6 +13,5 @@ target_link_libraries(deep
             deep::logger
             deep::layer
         PRIVATE
-            project_warnings
             fmt::fmt-header-only
             )

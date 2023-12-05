@@ -16,7 +16,6 @@ target_link_libraries(shader
             glad::glad
             fmt::fmt-header-only
             deep::types
-            project_warnings
         )
 
 target_compile_definitions(

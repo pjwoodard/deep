@@ -16,6 +16,5 @@ target_sources(
 target_link_libraries(
         events
         INTERFACE
-            project_warnings
             deep::types
             deep::logger)

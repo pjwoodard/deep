@@ -10,5 +10,4 @@ target_link_libraries(texture
             glfw
             glad::glad
             stb::stb
-            project_warnings
         )

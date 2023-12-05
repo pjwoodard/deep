@@ -9,8 +9,6 @@ target_include_directories(
 target_link_libraries(
         imgui_impl_opengl3
         PUBLIC
-            project_options
-            project_warnings
             imgui::imgui
             glad::glad
 )

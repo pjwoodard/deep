@@ -7,7 +7,6 @@ target_include_directories(window
 
 target_link_libraries(window
         PUBLIC
-            project_warnings
             glfw
             glad::glad
             deep::context

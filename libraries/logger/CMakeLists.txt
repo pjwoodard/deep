@@ -13,8 +13,6 @@ target_link_libraries(logger
     PUBLIC
         spdlog::spdlog_header_only
         deep::types
-    PRIVATE
-        project_warnings
 )
 
 target_compile_features(logger PUBLIC cxx_std_20)

@@ -16,8 +16,6 @@ target_link_libraries(
             deep::events
             deep::logger
         PRIVATE
-            project_warnings
-            project_options
             fmt::fmt-header-only
 )
 

@@ -17,5 +17,5 @@ public:
     void critical(std::string_view message) const;
 
 private:
-    std::shared_ptr<spdlog::logger> log_impl_;
+    std::shared_ptr<spdlog::logger> log_impl_{};
 };
