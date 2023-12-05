@@ -105,25 +105,22 @@ jobs:
         run: |
           conan install . --output-folder=./build --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
 
-      - name: Configure CMake (Windows)
-        if: runner.os == 'Windows'
+      - name: Configure CMake (Windows MSVC)
+        if: (runner.os == 'Windows' && matrix.compiler == 'msvc')
         run: |
           cmake --preset conan-default
 
-      - name: Configure CMake (Unix)
-        if: runner.os != 'Windows'
+      - name: Configure CMake (Unix or Windows LLVM)
+        if: runner.os == 'Linux' || (runner.os == 'Windows' && matrix.compiler == 'llvm')
         run: |
           cmake --preset conan-release 
 
       - name: Build
-        # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: |
           cmake --build ./build --preset conan-release
 
       - name: Unix - Test and coverage
         if: runner.os != 'Windows'
         working-directory: ./build
-        # Execute tests defined by the CMake configuration.
-        # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
         run: |
           ctest -C ${{matrix.build_type}}
