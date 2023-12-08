@@ -123,4 +123,4 @@ jobs:
         if: runner.os != 'Windows'
         working-directory: ./build
         run: |
-          ctest -C ${{matrix.build_type}}
+          ctest --test-dir build/test/ --output-on-failure
