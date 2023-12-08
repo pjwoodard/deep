@@ -2,7 +2,8 @@
 
 #include "layer_t.h"
 
-namespace deep {
+namespace deep
+{
 
 class Layer
 {
@@ -13,4 +14,4 @@ class Layer
     static void on_update() {}
 };
 
-} // deep
+}// namespace deep

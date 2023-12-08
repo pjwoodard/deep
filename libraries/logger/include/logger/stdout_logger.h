@@ -5,7 +5,7 @@
 class StdoutLogger
 {
   public:
-    explicit StdoutLogger(std::string_view name) : name_{name} {}
+    explicit StdoutLogger(std::string_view name) : name_{ name } {}
 
     static void debug(std::string_view message);
     static void info(std::string_view message);

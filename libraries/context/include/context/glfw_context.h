@@ -18,4 +18,4 @@ static bool init_glfw()
 
     return init_successful;
 }
-}
+}// namespace GlfwContext

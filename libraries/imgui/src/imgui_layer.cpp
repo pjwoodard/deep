@@ -7,21 +7,21 @@
 
 using namespace deep;
 
-//static void glfw_error_callback(int error, const char* description)
+// static void glfw_error_callback(int error, const char* description)
 //{
 //    fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 //}
 
 void ImGuiLayer::on_attach()
 {
-//    glfwSetErrorCallback(glfw_error_callback);
+    //    glfwSetErrorCallback(glfw_error_callback);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& imgui_io = ImGui::GetIO();
-    imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-    imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
+    ImGuiIO &imgui_io = ImGui::GetIO();
+    imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;// Enable Keyboard Controls
+    imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;// Enable Gamepad Controls
 
     ImGui::StyleColorsDark();
 
@@ -42,16 +42,18 @@ void ImGuiLayer::on_update()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+    // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to
+    // learn more about Dear ImGui!).
     ImGui::ShowDemoWindow(&show_demo_window);
 
     // Rendering
     ImGui::Render();
-    int32_t display_w{0};
-    int32_t display_h{0};
+    int32_t display_w{ 0 };
+    int32_t display_h{ 0 };
     glfwGetFramebufferSize(window, &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
-    glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+    glClearColor(
+      clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

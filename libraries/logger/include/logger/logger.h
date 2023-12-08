@@ -22,10 +22,7 @@ class Logger
 
     static void assert_and_log(std::string_view assert_msg, bool predicate)
     {
-        if (!predicate)
-        {
-            logger_.critical(assert_msg);
-        }
+        if (!predicate) { logger_.critical(assert_msg); }
 
         assert(predicate);
     }
@@ -35,4 +32,4 @@ class Logger
     // We default to spdlog for our logger
     inline static Logger_t logger_{ SpdLogger("Core Logger") };
 };
-} // namespace deep
+}// namespace deep

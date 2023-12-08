@@ -4,5 +4,6 @@
 
 #include "layer/layer.h"
 
-namespace deep {
-} // deep
+namespace deep
+{
+}// namespace deep
