@@ -49,19 +49,19 @@ class GlfwWindow
   private:
     struct GlfwWindowDeleter
     {
-        void operator()(GLFWwindow* raw_window) const { glfwDestroyWindow(raw_window); }
+        void operator()(GLFWwindow *raw_window) const { glfwDestroyWindow(raw_window); }
     };
 
-    static void key_pressed(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static void key_pressed(GLFWwindow *window, int key, int scancode, int action, int mods);
     static void mouse_button_pressed(GLFWwindow *window, int button, int action, int mods);
-    static void framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width, int32_t height);
-    static void processInput(GLFWwindow* window);
+    static void framebuffer_size_callback(GLFWwindow * /*window*/, int32_t width, int32_t height);
+    static void processInput(GLFWwindow *window);
 
     bool glfw_initialized_{ false };
     int32_t width_{};
     int32_t height_{};
     bool is_vsync_{ false };
-    static constexpr int32_t swap_interval_{1};
+    static constexpr int32_t swap_interval_{ 1 };
 
     std::unique_ptr<GLFWwindow, GlfwWindowDeleter> self_raw_;
 
@@ -70,4 +70,4 @@ class GlfwWindow
     inline static deep::events::Signal<int32_t, int32_t, int32_t, int32_t> on_key_pressed_;
 };
 
-} // namespace deep
+}// namespace deep

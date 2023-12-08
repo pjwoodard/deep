@@ -16,10 +16,9 @@ using namespace deep;
 using namespace std::placeholders;
 
 GlfwWindow::GlfwWindow(std::string_view title, types::Width width, types::Height height)
-  : glfw_initialized_{ GlfwContext::init_glfw() }
-  , width_{ width.get() }
-  , height_{ height.get() }
-  , self_raw_{ glfwCreateWindow(width_, height_, title.data(), nullptr, nullptr) }
+  : glfw_initialized_{ GlfwContext::init_glfw() }, width_{ width.get() }, height_{ height.get() }, self_raw_{
+        glfwCreateWindow(width_, height_, title.data(), nullptr, nullptr)
+    }
 {
     deep::Logger::assert_and_log("GLFW failed to initialize", glfw_initialized_);
     deep::Logger::assert_and_log("glfwCreateWindow returned null"sv.data(), static_cast<bool>(self_raw_));
@@ -41,10 +40,7 @@ void GlfwWindow::on_update()
     glfwSwapBuffers(self_raw_.get());
 }
 
-void GlfwWindow::set_vsync(bool enable)
-{
-    glfwSwapInterval(static_cast<int32_t>(enable));
-}
+void GlfwWindow::set_vsync(bool enable) { glfwSwapInterval(static_cast<int32_t>(enable)); }
 
 void GlfwWindow::set_as_current_context() const
 {
@@ -61,27 +57,21 @@ void GlfwWindow::set_as_current_context() const
 // Suppress this warning as we are conforming to a callback interface here despite window not changing
 // cppcheck-suppress constParameter
 // cppcheck-suppress constParameterCallback
-void GlfwWindow::mouse_button_pressed(GLFWwindow* window, int /*button*/, int /*action*/, int /*mods*/)
+void GlfwWindow::mouse_button_pressed(GLFWwindow *window, int /*button*/, int /*action*/, int /*mods*/)
 {
-    if (window == nullptr)
-    {
-        deep::Logger::critical_core(fmt::format("Window is null in function {}", __FUNCTION__));
-    }
+    if (window == nullptr) { deep::Logger::critical_core(fmt::format("Window is null in function {}", __FUNCTION__)); }
 
     on_mouse_button_pressed_.publish(deep::events::EventType::MouseButtonPressedEvent, 1);
 }
 
-void GlfwWindow::key_pressed(GLFWwindow* window, int32_t key, int scancode, int action, int mods)
+void GlfwWindow::key_pressed(GLFWwindow *window, int32_t key, int scancode, int action, int mods)
 {
-    if (window == nullptr)
-    {
-        deep::Logger::critical_core(fmt::format("Window is null"));
-    }
+    if (window == nullptr) { deep::Logger::critical_core(fmt::format("Window is null")); }
 
     on_key_pressed_.publish(deep::events::EventType::KeyPressedEvent, key, scancode, action, mods);
 }
 
-void GlfwWindow::framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width, int32_t height)
+void GlfwWindow::framebuffer_size_callback(GLFWwindow * /*window*/, int32_t width, int32_t height)
 {
     deep::Logger::debug_core(fmt::format("Calling {}", __FUNCTION__));
 
@@ -90,10 +80,7 @@ void GlfwWindow::framebuffer_size_callback(GLFWwindow* /*window*/, int32_t width
     glViewport(0, 0, width, height);
 }
 
-void GlfwWindow::processInput(GLFWwindow* window)
+void GlfwWindow::processInput(GLFWwindow *window)
 {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(window, 1);
-    }
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) { glfwSetWindowShouldClose(window, 1); }
 }

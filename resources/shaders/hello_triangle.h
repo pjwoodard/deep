@@ -5,7 +5,8 @@
 
 using namespace std::literals;
 
-namespace vertex_shaders {
+namespace vertex_shaders
+{
 constexpr static deep::types::VertexShaderSource hello_triangle{
     R"(
     #version 330 core
@@ -26,7 +27,8 @@ constexpr static deep::types::VertexShaderSource hello_triangle{
 };
 }
 
-namespace fragment_shaders {
+namespace fragment_shaders
+{
 constexpr static deep::types::FragmentShaderSource hello_triangle{
     R"(
     #version 330 core

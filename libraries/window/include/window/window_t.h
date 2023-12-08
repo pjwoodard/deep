@@ -4,26 +4,24 @@
 
 #include "logger/logger.h"
 
-namespace deep {
+namespace deep
+{
 struct Window_t
 {
-    template<typename T>
-    explicit Window_t(T t) noexcept
-      : self_{ std::make_unique<Implementation_t<T>>(std::move(t)) }
+    template<typename T> explicit Window_t(T t) noexcept : self_{ std::make_unique<Implementation_t<T>>(std::move(t)) }
     {
     }
 
     ~Window_t() = default;
-    Window_t(const Window_t& other) = delete;
-    Window_t& operator=(const Window_t& other) = delete;
+    Window_t(const Window_t &other) = delete;
+    Window_t &operator=(const Window_t &other) = delete;
 
-    Window_t(Window_t&& other) noexcept
-      : self_(std::move(other.self_))
+    Window_t(Window_t &&other) noexcept : self_(std::move(other.self_))
     {
         deep::Logger::debug_core("Move Constructor Called");
     }
 
-    Window_t& operator=(Window_t&& other) noexcept
+    Window_t &operator=(Window_t &&other) noexcept
     {
         deep::Logger::debug_core("Move Assignment Operator Called");
 
@@ -32,20 +30,11 @@ struct Window_t
         return *this;
     }
 
-    int32_t width()
-    {
-        return self_->width();
-    }
+    int32_t width() { return self_->width(); }
 
-    int32_t height()
-    {
-        return self_->height();
-    }
+    int32_t height() { return self_->height(); }
 
-    void on_update()
-    {
-        return self_->on_update();
-    }
+    void on_update() { return self_->on_update(); }
 
   private:
     struct Interface_t
@@ -56,13 +45,9 @@ struct Window_t
         virtual void on_update() = 0;
     };
 
-    template<typename T>
-    struct Implementation_t : Interface_t
+    template<typename T> struct Implementation_t : Interface_t
     {
-        explicit Implementation_t(T s) noexcept
-          : self_{ std::move(s) }
-        {
-        }
+        explicit Implementation_t(T s) noexcept : self_{ std::move(s) } {}
 
         int32_t width() override { return self_.width(); }
         int32_t height() override { return self_.height(); }
@@ -75,4 +60,4 @@ struct Window_t
     std::unique_ptr<Interface_t> self_;
 };
 
-}
+}// namespace deep

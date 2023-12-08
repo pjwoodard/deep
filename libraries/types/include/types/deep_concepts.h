@@ -1,10 +1,11 @@
 #pragma once
 
-#include <type_traits>
 #include <concepts>
 #include <string_view>
+#include <type_traits>
 
-namespace deep::concepts {
+namespace deep::concepts
+{
 template<typename T>
 concept Numeric = std::floating_point<T> || std::integral<T>;
 
@@ -17,7 +18,9 @@ concept Window = requires(T a, bool boolean)
     a.width();
     a.height();
     a.set_vsync(boolean);
-    {a.is_vsync()} -> std::same_as<bool>;
+    {
+        a.is_vsync()
+        } -> std::same_as<bool>;
 };
 
 template<typename LoggerType>
@@ -29,4 +32,4 @@ concept Logger = requires(LoggerType logger, std::string_view str)
     logger.error(str);
     logger.critical(str);
 };
-}
+}// namespace deep::concepts

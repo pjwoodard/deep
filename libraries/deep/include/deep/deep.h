@@ -8,21 +8,25 @@
 
 using namespace deep::concepts;
 
-namespace deep {
+namespace deep
+{
 
-class Deep {
-   public:
+class Deep
+{
+  public:
     explicit Deep();
 
-    [[nodiscard]] static auto& GetWindow() { return window_; }
+    [[nodiscard]] static auto &GetWindow() { return window_; }
 
     void emplace_layer(Layer_t &&layer);
     void run();
 
-   private:
+  private:
     deep::events::Signal<int32_t, int32_t> on_window_resized_;
     std::vector<Layer_t> layers_;
 
-    inline static const deep::GlfwWindow window_{"deep Main Application Window", types::Width(800), types::Height(600)};
+    inline static const deep::GlfwWindow window_{ "deep Main Application Window",
+        types::Width(800),
+        types::Height(600) };
 };
-}  // namespace deep
+}// namespace deep

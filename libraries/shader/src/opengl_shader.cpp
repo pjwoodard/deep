@@ -6,23 +6,18 @@
 
 // TODO: Guard against calling glCreateShader before GLFW init has finished
 OpenGLShader::OpenGLShader(const GLShaderType &type, std::string_view data)
-: id_{ glCreateShader(static_cast<std::underlying_type_t<GLShaderType>>(type)) }
+  : id_{ glCreateShader(static_cast<std::underlying_type_t<GLShaderType>>(type)) }
 {
     compile(data);
 }
 
-uint32_t OpenGLShader::id() const
-{
-    return id_;
-}
+uint32_t OpenGLShader::id() const { return id_; }
 
 void OpenGLShader::compile(std::string_view shader_program_str) const
 {
     // We ignore reinterpret cast here as it is a safe cast between constant types
     // Both data and pointer are left unmodified
-    const std::array<const GLchar *, 1> shaders = {
-        shader_program_str.data()
-    };
+    const std::array<const GLchar *, 1> shaders = { shader_program_str.data() };
 
     glShaderSource(id_, 1, shaders.data(), nullptr);
     glCompileShader(id_);
