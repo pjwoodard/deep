@@ -19,6 +19,7 @@ enum class GLShaderType : GLenum
     //    GeometryShader = GL_GEOMETRY_SHADER
 };
 
+
 class OpenGLShader
 {
   public:

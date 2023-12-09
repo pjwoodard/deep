@@ -13,12 +13,6 @@ Deep::Deep()
       { deep::Logger::debug_core(fmt::format("Width: {}, Height: {}", width, height)); });
 }
 
-void Deep::emplace_layer(deep::Layer_t &&layer)
-{
-    layer.on_attach();
-    layers_.emplace_back(std::move(layer));
-}
-
 void Deep::run()
 {
     while (true)
