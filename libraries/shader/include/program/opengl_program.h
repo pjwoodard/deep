@@ -1,6 +1,7 @@
 #pragma once
 
 #include "types/deep_types.h"
+#include "types/deep_concepts.h"
 
 #include <glad/glad.h>
 
