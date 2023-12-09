@@ -38,7 +38,6 @@ template<typename... Args> class Signal
         {
             auto &functions_to_call = event_map_.at(event_type);
             functions_to_call.push_back(func);
-            ;
         }
         else
         {

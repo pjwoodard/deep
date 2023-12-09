@@ -9,7 +9,6 @@ target_include_directories(
 target_sources(
         types
         INTERFACE
-            include/events/event_t.h
         include/events/signal.h
         include/events/events.h)
 

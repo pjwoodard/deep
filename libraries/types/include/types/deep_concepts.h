@@ -7,10 +7,10 @@
 namespace deep::concepts
 {
 template<typename T>
-concept Numeric = std::floating_point<T> || std::integral<T>;
+concept RealNumber = std::floating_point<T> || std::integral<T>;
 
 template<typename T>
-concept OpenGLUniform = Numeric<T> || std::same_as<bool, T>;
+concept OpenGLUniform = RealNumber<T> || std::same_as<bool, T>;
 
 template<typename T>
 concept Window = requires(T a, bool boolean)
@@ -21,6 +21,14 @@ concept Window = requires(T a, bool boolean)
     {
         a.is_vsync()
         } -> std::same_as<bool>;
+};
+
+template<typename LayerType>
+concept Layer = requires(LayerType layer)
+{
+    layer.on_attach();
+    layer.on_detach();
+    layer.on_update();
 };
 
 template<typename LoggerType>

@@ -9,7 +9,6 @@
 
 namespace deep
 {
-
 struct Layer_t
 {
     template<typename T>

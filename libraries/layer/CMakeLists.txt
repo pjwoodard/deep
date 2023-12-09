@@ -1,29 +1,25 @@
-add_library(layer
-        src/layer.cpp
-        src/layer_stack.cpp)
-
+add_library(layer INTERFACE)
 add_library(deep::layer ALIAS layer)
 
 target_include_directories(
         layer
-        PUBLIC
+        INTERFACE 
             include)
 
 
 target_link_libraries(
         layer
-        PUBLIC
+        INTERFACE 
             myproject_warnings
             myproject_options
             deep::events
             deep::logger
-        PRIVATE
             fmt::fmt-header-only
 )
 
 if(WIN32)
     target_compile_definitions(
         layer 
-        PUBLIC 
+        INTERFACE 
             _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS)
 endif()
