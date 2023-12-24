@@ -15,9 +15,8 @@ class MemoryDistributor
   public:
     // Constructor with a size and a destructor.
     MemoryDistributor(std::size_t size)
-      : raw_memory_block_{ std::make_unique<std::byte[]>(size) }
-      , total_memory_size_{ size }
-      , stack_allocator_{ raw_memory_block_.get(), total_memory_size_ } {};
+      : raw_memory_block_{ std::make_unique<std::byte[]>(size) }, total_memory_size_{ size },
+        stack_allocator_{ raw_memory_block_.get(), total_memory_size_ } {};
 
     // Every other operation on this class is deleted, no copies or moves allowed.
     MemoryDistributor() = delete;

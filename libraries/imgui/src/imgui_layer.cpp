@@ -1,12 +1,12 @@
 #include "imgui/imgui_layer.h"
 
 #include "deep/deep.h"
+#include "fmt/format.h"
+#include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "imgui.h"
 #include "logger/logger.h"
 #include "memory/memory_distributor.h"
-#include "fmt/format.h"
 
 using namespace deep;
 
@@ -55,7 +55,8 @@ void ImGuiLayer::on_update()
 
         // Create a window and display our data
         ImGui::Begin("Deep Metrics");
-        ImGui::Text("%s", fmt::format("Application average {} ms/frame ({} FPS)", 1000.0F / io.Framerate, io.Framerate).c_str());
+        ImGui::Text(
+          "%s", fmt::format("Application average {} ms/frame ({} FPS)", 1000.0F / io.Framerate, io.Framerate).c_str());
         ImGui::Text("%s", fmt::format("Total memory allocated: {} bytes", heap_stats.total_allocated).c_str());
         ImGui::Text("%s", fmt::format("Total memory deallocated: {} bytes", heap_stats.total_deallocated).c_str());
         ImGui::Text("%s", fmt::format("Current memory allocated: {} bytes", heap_stats.current_allocated).c_str());
