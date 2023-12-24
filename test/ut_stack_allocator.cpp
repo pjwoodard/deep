@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "memory/stack_allocator.h" 
+#include "memory/stack_allocator.h"
 
 TEST_CASE("Stack allocator works", "[stack_allocator]")
 {
@@ -60,5 +60,3 @@ TEST_CASE("Stack allocator works", "[stack_allocator]")
 //     REQUIRE(stack_allocator.GetUsedMemory() == 0);
 //     REQUIRE(stack_allocator.GetAllocationsCount() == 0);
 // }
-
-

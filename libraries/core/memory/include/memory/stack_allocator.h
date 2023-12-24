@@ -36,7 +36,7 @@ class StackAllocator
     StackAllocator(std::byte *pool, size_t size) noexcept : pool_(pool), pool_size_(size) {}
 
     // TODO: This doesn't work until we align the memory we request from the OS
-    ~StackAllocator() {  }
+    ~StackAllocator() {}
 
     // No default construction allowed, must provide a size
     StackAllocator() noexcept = delete;
