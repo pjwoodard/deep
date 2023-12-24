@@ -43,3 +43,12 @@ endif()
 # run vcvarsall when msvc is used
 include("${CMAKE_CURRENT_LIST_DIR}/vc_environment.cmake")
 run_vcvarsall()
+
+# RTTI and sized deallocation flags
+if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  add_compile_options(-fno-rtti -fsized-deallocation)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" AND MSVC_VERSION GREATER 1900)
+  add_compile_options(/GR- /Zc:sizedDealloc)
+else()
+  message(STATUS "No colored compiler diagnostic set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
+endif()
