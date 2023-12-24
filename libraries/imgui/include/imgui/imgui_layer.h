@@ -18,9 +18,6 @@ class ImGuiLayer
           {
               deep::Logger::debug_core(fmt::format(
                 "Key Pressed. Key Number: {}, Scan Code: {}, Action: {}, Mods: {}", keynum, scancode, action, mods));
-              ImGuiIO &io = ImGui::GetIO();
-
-              io.KeysDown[keynum] = true;
           });
     }
 
@@ -32,7 +29,6 @@ class ImGuiLayer
     deep::events::Signal<int32_t, int32_t, int32_t, int32_t> on_key_pressed_;
 
     // Our state
-    bool show_demo_window = true;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 };
 }// namespace deep
