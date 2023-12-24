@@ -1,7 +1,7 @@
 #pragma once
 
-#include "layer/layer_t.h"
 #include "events/signal.h"
+#include "layer/layer_t.h"
 #include "types/deep_concepts.h"
 #include "window/glfw_window.h"
 #include "window/window_t.h"
