@@ -33,9 +33,9 @@ class MemoryDistributor
 
     struct HeapStats
     {
-        std::size_t total_allocated{ 0 };
-        std::size_t total_deallocated{ 0 };
-        std::size_t current_allocated{ 0 };
+        std::size_t total_allocated;
+        std::size_t total_deallocated;
+        std::size_t current_allocated;
     };
 
     static HeapStats GetHeapStats() { return heap_stats_; };

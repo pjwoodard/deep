@@ -55,6 +55,18 @@ void operator delete[](void *ptr, std::size_t size)
     free(ptr);
 }
 
+void operator delete(void* ptr) noexcept
+{
+    deep::Logger::warn_core("Unsized raw delete called");
+    free(ptr);
+}
+
+void operator delete[](void* ptr) noexcept
+{
+    deep::Logger::warn_core("Unsized raw delete[] called");
+    free(ptr);
+}
+
 void *operator new(std::size_t size, AllocatorType allocator_type)
 {
     auto &alloc = ::memory_distributor.GetAllocatorByEnum(allocator_type);

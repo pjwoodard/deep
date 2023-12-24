@@ -28,6 +28,7 @@ myproject_setup_options()
 myproject_local_options()
 
 target_compile_features(myproject_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD})
+target_compile_options(myproject_options INTERFACE -fno-rtti -fsized-deallocation)
 
 add_library(myproject::myproject_options ALIAS myproject_options)
 add_library(myproject::myproject_warnings ALIAS myproject_warnings)
