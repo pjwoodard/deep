@@ -1,9 +1,9 @@
 #include <cstdint>
 
 #include "deep/deep.h"
+#include "events/events.h"
 #include "fmt/core.h"
 #include "logger/logger.h"
-#include "events/events.h"
 
 using namespace deep;
 
