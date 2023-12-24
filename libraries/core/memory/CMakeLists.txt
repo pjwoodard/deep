@@ -1,9 +1,7 @@
 add_library(
     memory 
-        src/global_memory_overrides.cpp
-        src/stack_allocator.cpp
-        src/memory_distributor.cpp
-)
+        src/global_memory_overrides.cpp)
+        
 add_library(deep::memory ALIAS memory)
 
 target_include_directories(memory
