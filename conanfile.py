@@ -4,6 +4,7 @@ from conan import ConanFile
 
 
 class DeepRecipe(ConanFile):
+    build_policy = "missing"
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeToolchain", "CMakeDeps"
 

@@ -33,7 +33,7 @@ void *operator new(std::size_t size)
     return ptr;
 }
 
-void operator delete(void *ptr, std::size_t size)
+void operator delete(void *ptr, std::size_t size) noexcept
 {
     memory_distributor.UpdateHeapStats(
       { .total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0 });
@@ -54,7 +54,7 @@ void *operator new[](std::size_t size)
     return ptr;
 }
 
-void operator delete[](void *ptr, std::size_t size)
+void operator delete[](void *ptr, std::size_t size) noexcept
 {
     memory_distributor.UpdateHeapStats(
       { .total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0 });
