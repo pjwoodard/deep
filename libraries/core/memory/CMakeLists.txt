@@ -15,4 +15,5 @@ target_link_libraries(memory
         myproject_options
         deep::types
         deep::logger
+        magic_enum::magic_enum
 )

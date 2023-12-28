@@ -1,13 +1,14 @@
 [requires]
 catch2/3.4.0
 docopt.cpp/0.6.2
-fmt/8.0.1
-spdlog/1.9.2
+fmt/10.1.1
+spdlog/1.12.0
 glfw/3.3.6
 glad/0.1.34
 namedtype/20190324
 stb/cci.20210713
 imgui/cci.20220621+1.88.docking
+magic_enum/0.9.5
 
 [options]
 glad/0.1.34:shared=False
@@ -15,8 +16,8 @@ glad/0.1.34:no_loader=False
 glad/0.1.34:spec=gl
 glad/0.1.34:gl_profile=core
 glad/0.1.34:gl_version=4.6
-fmt/8.0.1:header_only=True
-spdlog/1.9.2:header_only=True
+fmt/10.1.1:header_only=True
+spdlog/1.12.0:header_only=True
 
 [generators]
 CMakeDeps

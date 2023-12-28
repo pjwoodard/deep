@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <magic_enum/magic_enum.hpp>
 
 #include "logger/logger.h"
 #include "memory/stack_allocator.h"
@@ -15,8 +16,9 @@ class MemoryDistributor
   public:
     // Constructor with a size and a destructor.
     MemoryDistributor(std::size_t size)
-      : raw_memory_block_{ std::make_unique<std::byte[]>(size) }, total_memory_size_{ size },
-        stack_allocator_{ raw_memory_block_.get(), total_memory_size_ } {};
+      : raw_memory_block_{ std::make_unique<std::byte[]>(size) }
+      , total_memory_size_{ size }
+      , stack_allocator_{ raw_memory_block_.get(), total_memory_size_ } {};
 
     // Every other operation on this class is deleted, no copies or moves allowed.
     MemoryDistributor() = delete;
@@ -32,17 +34,20 @@ class MemoryDistributor
 
     struct HeapStats
     {
-        std::size_t total_allocated;
-        std::size_t total_deallocated;
-        std::size_t current_allocated;
+        size_t total_allocated;
+        size_t total_deallocated;
+        size_t current_allocated;
+        size_t unsized_allocations;
     };
 
     static HeapStats GetHeapStats() { return heap_stats_; };
 
-    void UpdateHeapStats(std::size_t allocated, std::size_t deallocated)
+    void UpdateHeapStats(const HeapStats& heap_stats)
     {
-        heap_stats_.total_allocated += allocated;
-        heap_stats_.total_deallocated += deallocated;
+        heap_stats_.total_allocated += heap_stats.total_allocated;
+        heap_stats_.total_deallocated += heap_stats.total_deallocated;
+        heap_stats_.unsized_allocations += heap_stats.unsized_allocations;
+
         heap_stats_.current_allocated = heap_stats_.total_allocated - heap_stats_.total_deallocated;
     };
 
@@ -53,7 +58,7 @@ class MemoryDistributor
         case AllocatorType::StackAllocator:
             return stack_allocator_;
         default:
-            deep::Logger::assert_and_log(fmt::format("Invalid allocator type {}", alloc_type), false);
+            deep::Logger::assert_and_log(fmt::format("Invalid allocator type {}", magic_enum::enum_name(alloc_type)), false);
             // We assert in debug builds and return a stack allocator in release builds.
             return stack_allocator_;
         }

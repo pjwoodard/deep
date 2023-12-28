@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <cstdlib>
 
-#include "logger/logger.h"
+// #include "logger/logger.h"
 #include "memory/memory_distributor.h"
 
 namespace
@@ -17,14 +17,17 @@ deep::memory::MemoryDistributor memory_distributor{ one_gigabyte };// NOLINT
 using AllocatorType = deep::memory::MemoryDistributor::AllocatorType;
 }// namespace
 
+// TODO: Figure out the logging situation in release mode for these overrides
+
 void *operator new(std::size_t size)
 {
-    memory_distributor.UpdateHeapStats(size, 0);
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = size, .total_deallocated = 0, .current_allocated = size, .unsized_allocations = 0 });
 
     auto *ptr = malloc(size);
     if (ptr == nullptr)
     {
-        deep::Logger::assert_and_log(fmt::format("Failed to allocate {} bytes of memory", size), false);
+        // deep::Logger::assert_and_log(fmt::format("Failed to allocate {} bytes of memory", size), false);
     }
 
     return ptr;
@@ -32,18 +35,18 @@ void *operator new(std::size_t size)
 
 void operator delete(void *ptr, std::size_t size)
 {
-    memory_distributor.UpdateHeapStats(0, size);
-    free(ptr);// NOLINT
+    memory_distributor.UpdateHeapStats({.total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0});
+    std::free(ptr);// NOLINT
 }
 
 void *operator new[](std::size_t size)
 {
-    memory_distributor.UpdateHeapStats(size, 0);
+    memory_distributor.UpdateHeapStats({.total_allocated = size, .total_deallocated = 0, .current_allocated = size, .unsized_allocations = 0});
 
     auto *ptr = malloc(size);
     if (ptr == nullptr)
     {
-        deep::Logger::assert_and_log(fmt::format("Failed to allocate {} bytes of memory", size), false);
+        // deep::Logger::assert_and_log(fmt::format("Failed to allocate {} bytes of memory", size), false);
     }
 
     return ptr;
@@ -51,24 +54,26 @@ void *operator new[](std::size_t size)
 
 void operator delete[](void *ptr, std::size_t size)
 {
-    memory_distributor.UpdateHeapStats(0, size);
-    free(ptr);
+    memory_distributor.UpdateHeapStats({.total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0});
+    std::free(ptr);
 }
 
 void operator delete(void *ptr) noexcept
 {
-    deep::Logger::warn_core("Unsized raw delete called");
-    free(ptr);
+    memory_distributor.UpdateHeapStats({ .total_allocated = 0, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 1 });
+    std::free(ptr);
 }
 
 void operator delete[](void *ptr) noexcept
 {
-    deep::Logger::warn_core("Unsized raw delete[] called");
-    free(ptr);
+    memory_distributor.UpdateHeapStats({ .total_allocated = 0, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 1 });
+    std::free(ptr);
 }
 
 void *operator new(std::size_t size, AllocatorType allocator_type)
 {
+    memory_distributor.UpdateHeapStats({.total_allocated = size, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 0});
+
     auto &alloc = ::memory_distributor.GetAllocatorByEnum(allocator_type);
 
     return alloc.allocate(size).data();
@@ -76,7 +81,7 @@ void *operator new(std::size_t size, AllocatorType allocator_type)
 
 void operator delete(void *ptr, std::size_t size, AllocatorType allocator_type)
 {
-    deep::Logger::assert_and_log(fmt::format("Deleting memory from allocator type {}", allocator_type), ptr != nullptr);
+    memory_distributor.UpdateHeapStats({.total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0});
 
     auto &alloc = ::memory_distributor.GetAllocatorByEnum(allocator_type);
 

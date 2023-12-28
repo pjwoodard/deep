@@ -6,13 +6,11 @@ TEST_CASE("Stack allocator works", "[stack_allocator]")
 {
     std::unique_ptr<std::byte[]> pool(new std::byte[1024]);
     deep::memory::StackAllocator stack_allocator(pool.get(), 1024);
-    // auto bytes_view = stack_allocator.allocate(512);
-    // REQUIRE(bytes_view.size() == 512);
-    // REQUIRE(stack_allocator.GetUsedMemory() == 512);
-    // REQUIRE(stack_allocator.GetAllocationsCount() == 1);
-    // stack_allocator.Free(ptr);
-    // REQUIRE(stack_allocator.GetUsedMemory() == 0);
-    // REQUIRE(stack_allocator.GetAllocationsCount() == 0);
+    auto bytes_view = stack_allocator.allocate(512);
+    REQUIRE(bytes_view.size() == 512);
+
+    auto bytes_view2 = stack_allocator.allocate(256);
+    REQUIRE(bytes_view2.size() == 256);
 }
 
 // TEST_CASE("Stack allocator works with alignment", "[stack_allocator]")

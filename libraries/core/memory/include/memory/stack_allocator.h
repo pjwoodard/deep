@@ -8,6 +8,9 @@
 
 namespace deep::memory
 {
+
+// TODO: allocate/deallocate should not be std::span, they should just be pointers 
+// TODO: Stack allocator can take a span of bytes in constructor
 class StackAllocator
 {
   public:
