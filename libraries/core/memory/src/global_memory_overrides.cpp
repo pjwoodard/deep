@@ -35,13 +35,15 @@ void *operator new(std::size_t size)
 
 void operator delete(void *ptr, std::size_t size)
 {
-    memory_distributor.UpdateHeapStats({.total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0});
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0 });
     std::free(ptr);// NOLINT
 }
 
 void *operator new[](std::size_t size)
 {
-    memory_distributor.UpdateHeapStats({.total_allocated = size, .total_deallocated = 0, .current_allocated = size, .unsized_allocations = 0});
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = size, .total_deallocated = 0, .current_allocated = size, .unsized_allocations = 0 });
 
     auto *ptr = malloc(size);
     if (ptr == nullptr)
@@ -54,25 +56,29 @@ void *operator new[](std::size_t size)
 
 void operator delete[](void *ptr, std::size_t size)
 {
-    memory_distributor.UpdateHeapStats({.total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0});
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0 });
     std::free(ptr);
 }
 
 void operator delete(void *ptr) noexcept
 {
-    memory_distributor.UpdateHeapStats({ .total_allocated = 0, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 1 });
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = 0, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 1 });
     std::free(ptr);
 }
 
 void operator delete[](void *ptr) noexcept
 {
-    memory_distributor.UpdateHeapStats({ .total_allocated = 0, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 1 });
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = 0, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 1 });
     std::free(ptr);
 }
 
 void *operator new(std::size_t size, AllocatorType allocator_type)
 {
-    memory_distributor.UpdateHeapStats({.total_allocated = size, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 0});
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = size, .total_deallocated = 0, .current_allocated = 0, .unsized_allocations = 0 });
 
     auto &alloc = ::memory_distributor.GetAllocatorByEnum(allocator_type);
 
@@ -81,7 +87,8 @@ void *operator new(std::size_t size, AllocatorType allocator_type)
 
 void operator delete(void *ptr, std::size_t size, AllocatorType allocator_type)
 {
-    memory_distributor.UpdateHeapStats({.total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0});
+    memory_distributor.UpdateHeapStats(
+      { .total_allocated = 0, .total_deallocated = size, .current_allocated = 0, .unsized_allocations = 0 });
 
     auto &alloc = ::memory_distributor.GetAllocatorByEnum(allocator_type);
 
