@@ -96,7 +96,7 @@ jobs:
 
       - name: Run Conan
         run: |
-          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20"
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20" --build=missing
 
       - name: Configure CMake (Windows MSVC)
         if: (runner.os == 'Windows' && matrix.compiler == 'msvc')
