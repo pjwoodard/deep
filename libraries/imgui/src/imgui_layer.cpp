@@ -1,20 +1,26 @@
 #include "imgui/imgui_layer.h"
 
 #include "deep/deep.h"
-#include "events/signal.h"
+#include "fmt/format.h"
+#include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "logger/logger.h"
+#include "memory/memory_distributor.h"
 
 using namespace deep;
 
-// static void glfw_error_callback(int error, const char* description)
-//{
-//    fprintf(stderr, "Glfw Error %d: %s\n", error, description);
-//}
+namespace
+{
+void glfw_error_callback(int error, const char *description)
+{
+    deep::Logger::error_core(fmt::format("Glfw Error {}: {}", error, description));
+}
+}// namespace
 
 void ImGuiLayer::on_attach()
 {
-    //    glfwSetErrorCallback(glfw_error_callback);
+    glfwSetErrorCallback(glfw_error_callback);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -42,9 +48,20 @@ void ImGuiLayer::on_update()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to
-    // learn more about Dear ImGui!).
-    ImGui::ShowDemoWindow(&show_demo_window);
+    {
+        // Grab our data to display
+        ImGuiIO &io = ImGui::GetIO();
+        const deep::memory::MemoryDistributor::HeapStats heap_stats = deep::memory::MemoryDistributor::GetHeapStats();
+
+        // Create a window and display our data
+        ImGui::Begin("Deep Metrics");
+        ImGui::Text(
+          "%s", fmt::format("Application average {} ms/frame ({} FPS)", 1000.0F / io.Framerate, io.Framerate).c_str());
+        ImGui::Text("%s", fmt::format("Total memory allocated: {} bytes", heap_stats.total_allocated).c_str());
+        ImGui::Text("%s", fmt::format("Total memory deallocated: {} bytes", heap_stats.total_deallocated).c_str());
+        ImGui::Text("%s", fmt::format("Current memory allocated: {} bytes", heap_stats.current_allocated).c_str());
+        ImGui::End();
+    }
 
     // Rendering
     ImGui::Render();

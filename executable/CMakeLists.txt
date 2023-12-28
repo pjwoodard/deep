@@ -18,7 +18,8 @@ target_link_libraries(
             deep::deep
             deep::events
             deep::imgui
-            deep::layer)
+            deep::layer
+            deep::memory)
 
 if(WIN32)
     target_compile_definitions(

@@ -13,6 +13,7 @@ target_link_libraries(
             myproject_options
             deep::deep
             deep::events
+            deep::memory
             imgui::imgui
             glfw
             external::imgui_impl_opengl3

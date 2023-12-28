@@ -65,13 +65,6 @@ jobs:
           script: |
             core.setFailed('There is a mismatch between configured llvm compiler and clang-tidy version chosen')
 
-      # - name: Install System Packages
-      #   run: |
-      #     if [ "$RUNNER_OS" == "Linux" ]; then
-      #       sudo apt install libxcb-util-dev libxcb-util0-dev libgl-dev libgl1-mesa-dev  libx11-xcb-dev libfontenc-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxres-dev libxss-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-dri3-dev
-      #     fi
-      #   shell: bash
-
       - uses: actions/checkout@v2
 
       - name: Setup Cache
@@ -103,7 +96,7 @@ jobs:
 
       - name: Run Conan
         run: |
-          conan install . --output-folder=./build --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20" --build=missing
 
       - name: Configure CMake (Windows MSVC)
         if: (runner.os == 'Windows' && matrix.compiler == 'msvc')

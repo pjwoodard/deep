@@ -41,6 +41,7 @@ find_package(glad)
 find_package(namedtype)
 find_package(stb)
 find_package(imgui)
+find_package(magic_enum)
 
 # Adding the src:
 add_subdirectory(executable)

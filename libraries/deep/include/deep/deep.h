@@ -27,7 +27,6 @@ class Deep
     void run();
 
   private:
-    static constexpr int32_t MAX_LAYERS{ 1024 };
     deep::events::Signal<int32_t, int32_t> on_window_resized_;
     std::vector<Layer_t> layers_;
 
