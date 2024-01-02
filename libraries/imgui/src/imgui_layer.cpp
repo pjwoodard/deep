@@ -60,6 +60,7 @@ void ImGuiLayer::on_update()
         ImGui::Text("%s", fmt::format("Total memory allocated: {} bytes", heap_stats.total_allocated).c_str());
         ImGui::Text("%s", fmt::format("Total memory deallocated: {} bytes", heap_stats.total_deallocated).c_str());
         ImGui::Text("%s", fmt::format("Current memory allocated: {} bytes", heap_stats.current_allocated).c_str());
+        ImGui::Text("%s", fmt::format("Unsized allocations: {}", heap_stats.unsized_allocations).c_str());
         ImGui::End();
     }
 
