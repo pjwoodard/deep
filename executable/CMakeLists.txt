@@ -19,7 +19,8 @@ target_link_libraries(
             deep::events
             deep::imgui
             deep::layer
-            deep::memory)
+            deep::memory
+            deep::vulkan)
 
 if(WIN32)
     target_compile_definitions(
