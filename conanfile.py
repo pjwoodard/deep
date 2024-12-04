@@ -29,4 +29,5 @@ class DeepRecipe(ConanFile):
         self.requires("stb/cci.20210713")
         self.requires("imgui/cci.20220621+1.88.docking")
         self.requires("magic_enum/0.9.5")
+        self.requires("vulkan-loader/1.3.290.0")
 
