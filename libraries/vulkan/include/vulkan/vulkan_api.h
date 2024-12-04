@@ -3,10 +3,10 @@
 namespace deep
 {
 
-class Vulkan 
+class VulkanApi
 {
   public:
-    Vulkan();
+    VulkanApi();
 
     void initialize();
 };
