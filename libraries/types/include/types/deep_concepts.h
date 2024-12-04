@@ -40,4 +40,11 @@ concept Logger = requires(LoggerType logger, std::string_view str)
     logger.error(str);
     logger.critical(str);
 };
+
+template<typename GraphicsApiType>
+concept GraphicsApi = requires(GraphicsApiType api)
+{
+    api.initialize();
+};
+
 }// namespace deep::concepts
