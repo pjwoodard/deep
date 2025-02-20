@@ -33,7 +33,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
         compiler:
-          - llvm
+          - llvm-19
           - gcc
         generator:
           - "Ninja Multi-Config"
@@ -58,21 +58,14 @@ jobs:
 
 
     steps:
-      - name: Check for llvm version mismatches
-        if: ${{ contains(matrix.compiler, 'llvm') && !contains(matrix.compiler, env.CLANG_TIDY_VERSION) }}
-        uses: actions/github-script@v3
-        with:
-          script: |
-            core.setFailed('There is a mismatch between configured llvm compiler and clang-tidy version chosen')
-
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Setup Cache
         uses: ./.github/actions/setup_cache
         with:
           compiler: ${{ matrix.compiler }}
           build_type: ${{ matrix.build_type }}
-          developer_mode: ${{ matrix.developer_mode }}
           generator: ${{ matrix.generator }}
 
       - name: Setup Cpp
@@ -85,18 +78,33 @@ jobs:
           conan: 2.0.14
           vcpkg: false
           ccache: true
-          clangtidy: ${{ env.CLANG_TIDY_VERSION }}
           cppcheck: true
           gcovr: true
           opencppcoverage: true
 
+      - name: Install Conan Configuration
+        run: |
+          conan config install ./conan/settings.yml
+
       - name: Detect Conan Profile
+        if: (runner.os == 'Windows' && matrix.compiler == 'msvc')
         run: |
           conan profile detect --force
 
-      - name: Run Conan
+      - name: Run Conan Install (Windows MSVC)
+        if: (runner.os == 'Windows' && matrix.compiler == 'msvc')
         run: |
           conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20" --build=missing
+
+      - name: Run Conan Install (Linux LLVM or Windows LLVM)
+        if: (runner.os == 'Linux' || runner.os == 'Windows') && matrix.compiler == 'llvm'
+        run: |
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ runner.os }}
+
+      - name: Run Conan Install (Linux GCC)
+        if: runner.os == 'Linux' && matrix.compiler == 'gcc'
+        run: |
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/gcc14 -s build_type=${{ matrix.build_type }}
 
       - name: Configure CMake (Windows MSVC)
         if: (runner.os == 'Windows' && matrix.compiler == 'msvc')
