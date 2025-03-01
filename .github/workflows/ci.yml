@@ -77,7 +77,7 @@ jobs:
 
       - name: Clean Conan Cache
         run: |
-          conan remove "*" -f
+          conan remove "*" --confirm
 
       - name: Clear Conan Lockfiles
         run: |
