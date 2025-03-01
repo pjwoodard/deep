@@ -79,10 +79,6 @@ jobs:
         run: |
           conan remove "*" --confirm
 
-      - name: Clear Conan Lockfiles
-        run: |
-          rm -rf ~/.conan/lock
-
       - name: Install Conan Configuration
         run: |
           conan config install ./conan/settings.yml
