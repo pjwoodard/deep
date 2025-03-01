@@ -92,7 +92,7 @@ jobs:
       - name: Run Conan Install (ubuntu-latest LLVM or windows-latest LLVM)
         if: ${{ (matrix.os == 'ubuntu-latest' || matrix.os == 'windows-latest') && matrix.compiler == 'llvm-19' }}
         run: |
-          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ runner.os }} -s os_build${{ runner.os }} --profile:build=./conan/profiles/llvm19
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ runner.os }} -s os_build=${{ runner.os }} --profile:build=./conan/profiles/llvm19
 
       - name: Run Conan Install (ubuntu-latest GCC)
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.compiler == 'gcc' }}
