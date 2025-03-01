@@ -39,18 +39,11 @@ jobs:
           - "Ninja Multi-Config"
         build_type:
           - Release
-          - Debug
         exclude:
           # GCC on both Windows and Mac are not supported
           - os: windows-latest
             compiler: gcc
         include:
-          # Windows msvc builds
-          - os: windows-2022
-            compiler: msvc
-            generator: "Visual Studio 17 2022"
-            build_type: Debug
-
           - os: windows-2022
             compiler: msvc
             generator: "Visual Studio 17 2022"
@@ -94,17 +87,17 @@ jobs:
       - name: Run Conan Install (windows-2022 MSVC)
         if: ${{ matrix.os == 'windows-2022' && matrix.compiler == 'msvc' }}
         run: |
-          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20" --build=missing
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20" --build=missing --settings=build_type=Release
 
       - name: Run Conan Install (ubuntu-latest LLVM or windows-latest LLVM)
         if: ${{ (matrix.os == 'ubuntu-latest' || matrix.os == 'windows-latest') && matrix.compiler == 'llvm-19' }}
         run: |
-          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ matrix.os }} --profile:build=./conan/profiles/llvm19
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ runner.os }} --profile:build=./conan/profiles/llvm19 --settings=build_type=Release
 
       - name: Run Conan Install (ubuntu-latest GCC)
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.compiler == 'gcc' }}
         run: |
-          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/gcc14 -s build_type=${{ matrix.build_type }} --profile:build=./conan/profiles/gcc14
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/gcc14 -s build_type=${{ matrix.build_type }} --profile:build=./conan/profiles/gcc14 --settings=build_type=Release
 
       - name: Configure CMake (windows-latest MSVC)
         if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'msvc' }}
