@@ -75,6 +75,14 @@ jobs:
           gcovr: true
           opencppcoverage: true
 
+      - name: Clean Conan Cache
+        run: |
+          conan remove "*" -f
+
+      - name: Clear Conan Lockfiles
+        run: |
+          rm -rf ~/.conan/lock
+
       - name: Install Conan Configuration
         run: |
           conan config install ./conan/settings.yml
