@@ -97,14 +97,14 @@ jobs:
           conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20" --build=missing
 
       - name: Run Conan Install (ubuntu-latest LLVM or windows-latest LLVM)
-        if: ${{ (matrix.os == 'ubuntu-latest' || matrix.os == 'windows-latest') && matrix.compiler == 'llvm' }}
+        if: ${{ (matrix.os == 'ubuntu-latest' || matrix.os == 'windows-latest') && matrix.compiler == 'llvm-19' }}
         run: |
           conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ matrix.os }}
 
       - name: Run Conan Install (ubuntu-latest GCC)
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.compiler == 'gcc' }}
         run: |
-          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/gcc14 -s build_type=${{ matrix.build_type }}
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/gcc14 -s build_type=${{ matrix.build_type }} --profile:build=./conan/profiles/gcc14
 
       - name: Configure CMake (windows-latest MSVC)
         if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'msvc' }}
@@ -112,7 +112,7 @@ jobs:
           cmake --preset conan-default
 
       - name: Configure CMake (Unix or windows-latest LLVM)
-        if: ${{ matrix.os == 'ubuntu-latest' || (matrix.os == 'windows-latest' && matrix.compiler == 'llvm') }}
+        if: ${{ matrix.os == 'ubuntu-latest' || (matrix.os == 'windows-latest' && matrix.compiler == 'llvm-19') }}
         run: |
           cmake --preset conan-release 
 
