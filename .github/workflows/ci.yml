@@ -80,7 +80,7 @@ jobs:
           conan config install ./conan/settings.yml
 
       - name: Detect Conan Profile
-        if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'msvc' }}
+        if: ${{ matrix.os == 'windows-2022' && matrix.compiler == 'msvc' }}
         run: |
           conan profile detect --force
 
