@@ -91,15 +91,15 @@ jobs:
         run: |
           conan profile detect --force
 
-      - name: Run Conan Install (windows-latest MSVC)
-        if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'msvc' }}
+      - name: Run Conan Install (windows-2022 MSVC)
+        if: ${{ matrix.os == 'windows-2022' && matrix.compiler == 'msvc' }}
         run: |
           conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True -s compiler.cppstd="20" --build=missing
 
       - name: Run Conan Install (ubuntu-latest LLVM or windows-latest LLVM)
         if: ${{ (matrix.os == 'ubuntu-latest' || matrix.os == 'windows-latest') && matrix.compiler == 'llvm-19' }}
         run: |
-          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ matrix.os }}
+          conan install . --output-folder=./build -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --build=missing -pr ./conan/profiles/llvm19 -s build_type=${{ matrix.build_type }} -s os=${{ matrix.os }} --profile:build=./conan/profiles/llvm19
 
       - name: Run Conan Install (ubuntu-latest GCC)
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.compiler == 'gcc' }}
