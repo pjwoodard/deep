@@ -15,12 +15,13 @@ class VulkanApi
 
     void run();
     void initialize();
-    void destroy(); 
+    void destroy();
+
   private:
     void init_window();
     VkInstance init_vulkan();
 
-    GLFWwindow* window_;
+    GLFWwindow *window_;
     VkInstance instance_;
 };
 }// namespace deep
