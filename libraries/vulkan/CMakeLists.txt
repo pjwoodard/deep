@@ -9,8 +9,10 @@ target_link_libraries(vulkan
         PUBLIC
             myproject_warnings
             myproject_options
-            Vulkan::Headers
+            Vulkan::Vulkan
         PRIVATE
             fmt::fmt-header-only
             glfw
-            )
+)
+
+target_compile_features(vulkan PRIVATE cxx_std_23)

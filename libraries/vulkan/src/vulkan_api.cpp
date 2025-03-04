@@ -1,6 +1,9 @@
 #include "vulkan/vulkan_api.h"
 
 #include <stdexcept>
+#include <utility>
+#include <vector>
+#include <fmt/format.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -23,8 +26,8 @@ namespace
         createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
         createInfo.pApplicationInfo = &appInfo;
 
-        uint32_t glfwExtensionCount = 0;
-        const char** glfwExtensions;
+        uint32_t glfwExtensionCount{0};
+        const char** glfwExtensions{nullptr};
 
         glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
@@ -35,29 +38,35 @@ namespace
         VkResult result = vkCreateInstance(&createInfo, nullptr, &instance);
 
         if (result != VK_SUCCESS) {
-            throw std::runtime_error("failed to create instance!");
+            throw std::runtime_error(fmt::format("failed to create instance: {}!", std::to_underlying(result)));
         }
+
         return instance;
     }
 }
 
 namespace deep
 {
+VulkanApi::VulkanApi()
+{
+}
+
 void VulkanApi::initialize()
 {
     init_window();
-    init_vulkan();
+    instance_ = init_vulkan();
 }
 
 void VulkanApi::destroy()
 {
+    vkDestroyInstance(instance_, nullptr);
     glfwDestroyWindow(window_);
     glfwTerminate();    
 }
 
-void VulkanApi::init_vulkan()
+VkInstance VulkanApi::init_vulkan()
 {
-    create_vulkan_instance();
+    return create_vulkan_instance();
 }
 
 void VulkanApi::init_window()
@@ -70,7 +79,7 @@ void VulkanApi::init_window()
     window_ = glfwCreateWindow(800, 600, "Vulkan", nullptr, nullptr); 
 }
 
-void VulkanApi::main_loop()
+void VulkanApi::run()
 {
     while (!glfwWindowShouldClose(window_)) {
         glfwPollEvents();
