@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16...3.23)
 # Not ideal to use this global variable, but necessary to make sure
 # that tooling and projects use the same version
 if (NOT DEFINED CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 20)
+  set(CMAKE_CXX_STANDARD 23)
 endif()
 
 # strongly encouraged to enable this globally to avoid conflicts between
