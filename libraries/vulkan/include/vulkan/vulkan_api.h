@@ -18,9 +18,11 @@ class VulkanApi
     void destroy(); 
   private:
     void init_window();
-    VkInstance init_vulkan();
+    void init_vulkan();
+    void setup_debug_messenger();
 
     GLFWwindow* window_;
     VkInstance instance_;
+    VkDebugUtilsMessengerEXT debugMessenger;
 };
 }// namespace deep
