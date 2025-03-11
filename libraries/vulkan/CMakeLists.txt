@@ -11,6 +11,7 @@ target_link_libraries(vulkan
             myproject_options
             Vulkan::Vulkan
         PRIVATE
+            deep::logger
             fmt::fmt-header-only
             glfw
 )

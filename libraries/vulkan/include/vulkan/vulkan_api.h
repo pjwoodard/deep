@@ -20,6 +20,7 @@ class VulkanApi
     void init_window();
     void init_vulkan();
     void setup_debug_messenger();
+    void pick_physical_device();
 
     GLFWwindow* window_;
     VkInstance instance_;
