@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16...3.23)
 # Not ideal to use this global variable, but necessary to make sure
 # that tooling and projects use the same version
 if (NOT DEFINED CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 20)
+  set(CMAKE_CXX_STANDARD 23)
 endif()
 
 # strongly encouraged to enable this globally to avoid conflicts between
@@ -42,6 +42,7 @@ find_package(namedtype)
 find_package(stb)
 find_package(imgui)
 find_package(magic_enum)
+find_package(Vulkan)
 
 # Adding the src:
 add_subdirectory(executable)
@@ -51,7 +52,6 @@ add_subdirectory(libraries)
 # Adding the tests:
 option(ENABLE_TESTING "Enable the tests" ${PROJECT_IS_TOP_LEVEL})
 if(ENABLE_TESTING)
-  message(AUTHOR_WARNING "Building Tests. Be sure to check out test/constexpr_tests.cpp for constexpr testing")
   add_subdirectory(test)
 endif()
 
