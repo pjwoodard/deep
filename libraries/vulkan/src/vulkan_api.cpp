@@ -52,7 +52,10 @@ VkResult CreateDebugUtilsMessengerEXT(VkInstance instance,
     auto func = reinterpret_cast<PFN_vkCreateDebugUtilsMessengerEXT>(
       vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT"));
     if (func != nullptr) { return func(instance, pCreateInfo, pAllocator, pDebugMessenger); }
-    else { return VK_ERROR_EXTENSION_NOT_PRESENT; }
+    else
+    {
+        return VK_ERROR_EXTENSION_NOT_PRESENT;
+    }
 }
 
 void DestroyDebugUtilsMessengerEXT(VkInstance instance,
@@ -168,9 +171,7 @@ struct QueueFamilyIndices
 {
     std::optional<uint32_t> graphicsFamily;
 
-    bool isComplete() {
-        return graphicsFamily.has_value();
-    }
+    bool isComplete() { return graphicsFamily.has_value(); }
 };
 
 QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device)
@@ -186,20 +187,18 @@ QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device)
 
     int i = 0;
     for (const auto &queueFamily : queueFamilies)
-    {    
+    {
         if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) { indices.graphicsFamily = i; }
 
-        if (indices.isComplete()) {
-            break;
-        }
+        if (indices.isComplete()) { break; }
 
         i++;
     }
 
     return indices;
 }
-bool isDeviceSuitable(VkPhysicalDevice device) 
-{ 
+bool isDeviceSuitable(VkPhysicalDevice device)
+{
     QueueFamilyIndices indices = findQueueFamilies(device);
 
     return indices.isComplete();
@@ -237,7 +236,8 @@ void VulkanApi::pick_physical_device()
     VkPhysicalDeviceProperties gpu_properties = {};
     vkGetPhysicalDeviceProperties(physicalDevice, &gpu_properties);
 
-    deep::Logger::debug_core(fmt::format("GPU found with name: {}, type: {}", gpu_properties.deviceName, std::to_underlying(gpu_properties.deviceType)));
+    deep::Logger::debug_core(fmt::format(
+      "GPU found with name: {}, type: {}", gpu_properties.deviceName, std::to_underlying(gpu_properties.deviceType)));
 }
 
 void VulkanApi::setup_debug_messenger()

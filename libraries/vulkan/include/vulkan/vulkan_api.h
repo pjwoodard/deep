@@ -15,14 +15,15 @@ class VulkanApi
 
     void run();
     void initialize();
-    void destroy(); 
+    void destroy();
+
   private:
     void init_window();
     void init_vulkan();
     void setup_debug_messenger();
     void pick_physical_device();
 
-    GLFWwindow* window_;
+    GLFWwindow *window_;
     VkInstance instance_;
     VkDebugUtilsMessengerEXT debugMessenger;
 };
