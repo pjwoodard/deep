@@ -38,15 +38,14 @@ target_link_libraries(
     myproject::myproject_options
     Catch2::Catch2WithMain)
 
-#add_executable(tests tests.cpp)
-#target_link_libraries(
-  #tests
-  #PRIVATE 
-    #deep::math
-    #deep::memory
-    #myproject::myproject_warnings
-    #myproject::myproject_options
-    #Catch2::Catch2WithMain)
+add_executable(bitset_tests ut_bitset.cpp)
+target_link_libraries(
+  bitset_tests
+  PRIVATE 
+    deep::bitset
+    myproject::myproject_warnings
+    myproject::myproject_options
+    Catch2::Catch2WithMain)
 
 if(WIN32 AND BUILD_SHARED_LIBS)
   add_custom_command(
